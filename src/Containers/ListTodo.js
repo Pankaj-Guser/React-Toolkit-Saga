@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { sagaActions } from "../sagaActions";
+import { todoActions } from "../actions/todoActions";
 import renderList from "../Components/renderList";
 
 const ListTodo = () => {
@@ -9,7 +9,7 @@ const ListTodo = () => {
 
   return (
     <div>
-      <button onClick={() => dispatch({ type: sagaActions.FETCH_DATA_SAGA })}>
+      <button onClick={() => dispatch({ type: todoActions.FETCH_DATA_SAGA })}>
         Getdata
       </button>
       {renderList(todos)}
