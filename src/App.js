@@ -1,19 +1,21 @@
 import React from "react";
 import "./styles.css";
-import { Provider } from "react-redux";
-import ListTodo from "./ListTodo";
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import ListTodo from "./Containers/ListTodo";
 import store from "./store";
 
-console.log(store.getState());
 
-export default function App() {
+const App = () => {
   return (
-    <Provider store={store}>
-      <div className="App">
-        <h1>Hello CodeSandbox</h1>
-        <h2>Start editing to see some magic happen!</h2>
-        <ListTodo />
-      </div>
-    </Provider>
+      <Provider store={store}>
+        <BrowserRouter>
+            <Switch>
+              <Route exact path='/' component={ListTodo} />
+            </Switch>
+        </BrowserRouter>
+      </Provider>
   );
 }
+
+export default App;

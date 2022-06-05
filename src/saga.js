@@ -1,6 +1,6 @@
 import { call, takeEvery, put } from "redux-saga/effects";
 import Axios from "axios";
-import { fetchData } from "./store";
+import { fetchData } from "./Features/TODODataReducer";
 import { sagaActions } from "./sagaActions";
 
 let callAPI = async ({ url, method, data }) => {
@@ -14,7 +14,7 @@ let callAPI = async ({ url, method, data }) => {
 export function* fetchDataSaga() {
   try {
     let result = yield call(() =>
-      callAPI({ url: "https://5ce2c23be3ced20014d35e3d.mockapi.io/api/todos" })
+      callAPI({ url: "https://jsonplaceholder.typicode.com/todos/1" })
     );
     yield put(fetchData(result.data));
   } catch (e) {
