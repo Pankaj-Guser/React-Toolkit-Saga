@@ -7,9 +7,15 @@ const todoApiUrl = {
 }
 export function* fetchDataSaga() {
   try {
-    console.log("methode call step 1")
     let result = yield call( ()=> todoApi.callAPI(todoApiUrl));
-    console.log("methode call step 2", result)
+    result.data = [
+      ["data1", "data2"],
+      ["data21", "data21"],
+      ["data31", "data32"],
+      ["data41", "data42"],
+      ["data51", "data51"],
+      ["data61", "data62"]
+    ]
     
     yield put(fetchData(result.data));
   } catch (e) {

@@ -1,0 +1,24 @@
+$position: absolute;
+$color: #007bff;
+$background-color: lightgray;
+.error-msg-style {
+  position: $position;
+  display: flex;
+  padding: 50px 233px;
+}
+tr:nth-child(even) {
+  background-color: $background-color;
+}
+.display {
+  display: flex ;
+}
+
+tr:hover {
+  background-color: $background-color;
+}
+.btn-link:hover {
+  color: $color;
+  text-decoration: none;
+  background-color: transparent;
+  border-color: transparent;
+}
