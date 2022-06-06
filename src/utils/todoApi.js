@@ -1,6 +1,6 @@
 import Axios from "axios";
 
-let callAPI = async ({ url, method, data }) => {
+const callAPI = async ({ url, method, data }) => {
     return await Axios({
       url,
       method,
