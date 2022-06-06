@@ -1,16 +1,14 @@
 import React from "react";
-import {useSelector, useDispatch } from "react-redux";
-import {
-  Add
-} from "../../Features/TODODataReducer";
-import "./table.scss";
-export default function TableHeaderComp() {
-  const tableData = useSelector(state => state.todo.todos); 
-  const dispatch = useDispatch();
 
-  function AddElement() {
-    let data = [...tableData, ["", ""]];
-    dispatch(Add(data));
+import "./table.scss";
+export default function TableHeaderComp(props) {
+  const {
+    addTableRow
+  } = props;
+
+  const AddElement = () => {
+    let data = ["", ""];
+    addTableRow(data)
   }
   return (
     <div className="display container" >

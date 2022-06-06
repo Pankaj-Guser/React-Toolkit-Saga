@@ -1,20 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  Remove
-} from "../../Features/TODODataReducer";
+import React from "react";
 
 import "./table.scss";
 
-export default function TableBodyComp() {
-  const tableData = useSelector(state => state.todo.todos); 
-  const dispatch = useDispatch();
-  const [bodyData, SetbodyData] = useState(tableData);
+export default function TableBodyComp(props) {
 
-  useEffect(() => {
-    SetbodyData(tableData);
-  }, [tableData]);
-
+  const {
+    tableData,
+    removeTableRow
+  } = props;
   function ConfirmBox() {
     return (
       <>
@@ -26,15 +19,15 @@ export default function TableBodyComp() {
   }
 
   function RemoveElement(index) {
-    let tableData = [...bodyData];
     tableData.splice(index, 1);
     ConfirmBox();
-    dispatch(Remove(tableData));
+    removeTableRow(tableData);
   }
+  
   return (
     <tbody className="table-body" key="tableBody">
-      {bodyData.length > 0 ? (
-        bodyData.map((data, index) => (
+      {tableData !== undefined && tableData.length > 0 ? (
+        tableData.map((data, index) => (
           <tr className="table-row" key={index}>
             {data.map((rowData, key) => (
               <td className="table-cell" key={`rowData${key}`}>

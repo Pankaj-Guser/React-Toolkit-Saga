@@ -1,35 +1,18 @@
-import {
-  configureStore,
-  getDefaultMiddleware
-} from "@reduxjs/toolkit";
-import TODODataReducer from "./Features/TODODataReducer";
+import { createStore, applyMiddleware } from 'redux';
+import rootReducer from './reducers/rootReducer';
 import createSagaMiddleware from "redux-saga";
-import saga from "./saga";
-
-// let sagaMiddleware = createSagaMiddleware();
-// const middleware = [...getDefaultMiddleware({ thunk: false }), sagaMiddleware];
-
-// const store = configureStore({
-//   reducer: {
-//     todoReducer: rootReducer,
-//   },
-//   middleware
-// });
-
-    
+import saga from "./saga";  
 
 let middleware = [];
 
 const sagaMiddleware = createSagaMiddleware();
 
-
-middleware = [...getDefaultMiddleware({ thunk: false }), sagaMiddleware];
-const store = configureStore({ 
-  reducer: {
-    todo: TODODataReducer.reducer,
-  },
-  middleware
-})
+const storeData = {}
+middleware.push(sagaMiddleware);
+const store = applyMiddleware(...middleware)(createStore)(
+  rootReducer,
+  storeData
+  );
 
 sagaMiddleware.run(saga);
 

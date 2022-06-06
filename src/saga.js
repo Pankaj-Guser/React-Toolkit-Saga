@@ -1,6 +1,5 @@
 import { call, takeEvery, put } from "redux-saga/effects";
-import { fetchData } from "./Features/TODODataReducer";
-import { todoActions } from "./actions/todoActions";
+import { tableActions } from "./actions/tableActions";
 import todoApi from "./utils/todoApi";
 const todoApiUrl = {
   url: "https://jsonplaceholder.typicode.com/todos/1",
@@ -16,13 +15,12 @@ export function* fetchDataSaga() {
       ["data51", "data51"],
       ["data61", "data62"]
     ]
-    
-    yield put(fetchData(result.data));
+    yield put({type: "GET_TABLE_DATA", payload: result.data});
   } catch (e) {
     yield put({ type: "TODO_FETCH_FAILED" });
   }
 }
 
 export default function* rootSaga() {
-  yield takeEvery(todoActions.FETCH_DATA_SAGA, fetchDataSaga);
+  yield takeEvery(tableActions.FETCH_DATA_SAGA, fetchDataSaga);
 }
