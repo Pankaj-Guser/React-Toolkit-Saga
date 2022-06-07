@@ -1,7 +1,5 @@
 import React, { useState} from "react";
 import mockData from "../../mockData/TableMockData"
-// import TableHeaderComp from "./TableHeaderComp";
-// import TableBodyComp from "./TableBodyComp";
 
 import Table, { Utils } from "terra-table";
 import EmptyComp from "../../Components/EmptyComp";
@@ -16,7 +14,7 @@ export default function TableComp(props) {
 
   const tableHeaderData = mockData.tableHeaderMockData;
   
-  const maxSectionCount = 3;
+  const maxSectionCount = tableData.tabledata.length-1;
 
   const createCell = (cell) => ({ key: cell.key, children: cell.title });
   const createHeader = (cell) => ({ key: cell.key, children: cell.children });
