@@ -16,7 +16,6 @@ export default function ListTodo() {
     dispatch({type: "ADD_ROW", payload: [...tableData.tabledata, newRow]})
   }
   const removeTableRow = (tableData) => {
-
     dispatch({type: "REMOVE_ROW", payload: tableData})
   }
 

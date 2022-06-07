@@ -16,6 +16,10 @@ tr:nth-child(even) {
 tr:hover {
   background-color: $background-color;
 }
+.btn-space {
+  display: flex;
+  justify-content: space-between;
+}
 .btn-link:hover {
   color: $color;
   text-decoration: none;
