@@ -1,20 +1,16 @@
-import React, { useState} from "react";
-import mockData from "../../mockData/TableMockData"
-
+import React, { useState, useMemo } from "react";
+import mockData from "../../mockData/TableMockData";
+import ActionItemsComp from "./ActionItems";
 import Table, { Utils } from "terra-table";
 import EmptyComp from "../../Components/EmptyComp";
 import "./table.scss";
 
 export default function TableComp(props) {
-  const {
-    tableData,
-    addTableRow,
-    removeTableRow
-  } = props;
+  const { tableData } = props;
 
   const tableHeaderData = mockData.tableHeaderMockData;
-  
-  const maxSectionCount = tableData.tabledata.length-1;
+
+  const maxSectionCount = tableData.tabledata.length - 1;
 
   const createCell = (cell) => ({ key: cell.key, children: cell.title });
   const createHeader = (cell) => ({ key: cell.key, children: cell.children });
@@ -27,28 +23,6 @@ export default function TableComp(props) {
     event.preventDefault();
     setSelectedKeys(Utils.toggleArrayValue(selectedKeys, metaData.key));
   };
-
-  const RemoveSelected = (e) => {
-    e.preventDefault();
-    let data = tableData.tabledata
-    data = data.filter(item => selectedKeys.indexOf(item.key) === -1);
-    removeTableRow(data);
-  }
-
-  const AddElement = () => {
-    let data = tableData.tabledata;
-    let latestIndex = parseInt(data[data.length-1].key) + 1;
-    let newData = {key: latestIndex.toString(), 
-    toggleText: "toggle",
-    cells:[
-      { key: 'cell-0', id: 'toggle-0', title: 'Name1' },
-      { key: 'cell-1', id: 'toggle-1', title: 'Address' },
-      { key: 'cell-2', id: 'toggle-2', title: 'Phone Number' },
-      { key: 'cell-3', id: 'toggle-3', title: 'Email Id' },
-    ]}
-
-    addTableRow(newData);
-  }
 
   const createRow = (rowData) => ({
     key: rowData.key,
@@ -65,10 +39,10 @@ export default function TableComp(props) {
       toggleLabel: rowData.toggleText,
     },
   });
+
   const createRows = (data) => data.map((childItem) => createRow(childItem));
   const createHeaders = (data) =>
     data.map((childItem) => createHeader(childItem));
-
 
   return (
     <div>
@@ -94,20 +68,7 @@ export default function TableComp(props) {
               },
             ]}
           />
-          <div className="btn-space" >
-            <button
-              type="button"
-              onClick={AddElement}
-            >
-              Add
-            </button>
-            <button
-              type="button"
-              onClick={RemoveSelected}
-            >
-              Remove
-            </button>
-          </div>
+          <ActionItemsComp selectedKeys={selectedKeys} />
         </div>
       ) : (
         <EmptyComp />
