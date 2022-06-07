@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState} from "react";
 import mockData from "../../mockData/TableMockData";
 import ActionItemsComp from "./ActionItems";
 import Table, { Utils } from "terra-table";
