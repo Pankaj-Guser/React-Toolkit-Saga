@@ -1,4 +1,5 @@
 import React, { useState} from "react";
+import mockData from "../../mockData/TableMockData"
 // import TableHeaderComp from "./TableHeaderComp";
 // import TableBodyComp from "./TableBodyComp";
 
@@ -13,12 +14,7 @@ export default function TableComp(props) {
     removeTableRow
   } = props;
 
-  const tableHeaderData = [
-    { key: "cell-0", id: "toggle-0", children: "Name" },
-    { key: "cell-1", id: "toggle-1", children: "Address" },
-    { key: "cell-2", id: "toggle-2", children: "Phone Number" },
-    { key: "cell-3", id: "toggle-3", children: "Email Id" },
-  ];
+  const tableHeaderData = mockData.tableHeaderMockData;
   
   const maxSectionCount = 3;
 
