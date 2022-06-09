@@ -8,8 +8,4 @@ const callAPI = async ({ url, method, data }) => {
     });
   };
 
-const todoApi = {
-    callAPI
-}
-
-export default todoApi;
+export { callAPI };

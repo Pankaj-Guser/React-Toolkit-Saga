@@ -1,8 +1,8 @@
 import React, { useState} from "react";
-import mockData from "../../mockData/TableMockData";
+import mockData from "../../mockData/tableMockData";
 import ActionItemsComp from "./ActionItems";
 import Table, { Utils } from "terra-table";
-import EmptyComp from "../../Components/EmptyComp";
+import EmptyComp from "../EmptyComp";
 import "./table.scss";
 
 export default function TableComp(props) {
@@ -10,7 +10,7 @@ export default function TableComp(props) {
 
   const tableHeaderData = mockData.tableHeaderMockData;
 
-  const maxSectionCount = tableData.tabledata.length - 1;
+  // let maxSectionCount = tableData.tabledata.length;
 
   const createCell = (cell) => ({ key: cell.key, children: cell.title });
   const createHeader = (cell) => ({ key: cell.key, children: cell.children });
@@ -18,7 +18,6 @@ export default function TableComp(props) {
   const createCellsForRow = (cells) => cells.map((cell) => createCell(cell));
 
   const [selectedKeys, setSelectedKeys] = useState([]);
-
   const handleRowToggle = (event, metaData) => {
     event.preventDefault();
     setSelectedKeys(Utils.toggleArrayValue(selectedKeys, metaData.key));
@@ -27,11 +26,6 @@ export default function TableComp(props) {
   const createRow = (rowData) => ({
     key: rowData.key,
     cells: createCellsForRow(rowData.cells),
-    isDisabled: !Utils.canToggleArrayValue(
-      maxSectionCount,
-      selectedKeys,
-      rowData.key
-    ),
     toggleAction: {
       metaData: { key: rowData.key },
       onToggle: handleRowToggle,
@@ -43,7 +37,6 @@ export default function TableComp(props) {
   const createRows = (data) => data.map((childItem) => createRow(childItem));
   const createHeaders = (data) =>
     data.map((childItem) => createHeader(childItem));
-
   return (
     <div>
       {tableData.tabledata.length > 0 ? (

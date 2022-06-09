@@ -1,7 +1,8 @@
 import { tableActions }  from '../actions/tableActions';
 
 const DEFAULT_ALLERGIES_STATE = {
-  tabledata: []
+  tabledata: [],
+  error: ""
 };
 
 
@@ -25,6 +26,11 @@ export const TableData = (state = DEFAULT_ALLERGIES_STATE, action) => {
         ...state,
         tabledata: action.payload
       }
+    case tableActions.GET_TABLE_DATA_ERROR: 
+    return {
+      ...state,
+      error: action.payload
+    }
     default:
       return state;
   }

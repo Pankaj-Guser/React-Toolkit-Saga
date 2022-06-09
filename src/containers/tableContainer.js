@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { tableActions } from "../actions/tableActions";
-import TableComp from "../Components/Table/Table";
+import TableComp from "../components/Table/Table";
 
 export default function ListTodo() {
   const dispatch = useDispatch();

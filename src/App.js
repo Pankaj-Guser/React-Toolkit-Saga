@@ -2,7 +2,7 @@ import React from "react";
 import "./styles.css";
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import ListTodo from "./Containers/ListTodo";
+import TableContainer from "./containers/tableContainer";
 import store from "./store";
 
 
@@ -11,7 +11,7 @@ const App = () => {
       <Provider store={store}>
         <BrowserRouter>
             <Switch>
-              <Route exact path='/' component={ListTodo} />
+              <Route exact path='/' component={TableContainer} />
             </Switch>
         </BrowserRouter>
       </Provider>
