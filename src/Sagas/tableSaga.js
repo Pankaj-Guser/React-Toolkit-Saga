@@ -7,7 +7,6 @@ import { tableUrl } from "../constants/tableUrl";
 export function* fetchDataSaga() {
   try {
     let result = yield call( ()=> callAPI(tableUrl));
-    
     result.data = TableData(mockData.tableBodyMockData);
     yield put({type: tableActions.GET_TABLE_DATA, payload: result.data});
   } catch (e) {

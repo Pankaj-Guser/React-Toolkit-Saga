@@ -1,7 +1,7 @@
-import React, {useEffect} from "react";
+import React, {useEffect, Suspense, lazy} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { tableActions } from "../actions/tableActions";
-import TableComp from "../components/Table/Table";
+const TableComp = lazy(() => import('../components/Table/Table'));
 
 export default function ListTodo() {
   const dispatch = useDispatch();
@@ -21,11 +21,13 @@ export default function ListTodo() {
 
   return (
     <div>
-      <TableComp 
-        tableData = {tableData}
-        addTableRow = {addTableRow}
-        removeTableRow = {removeTableRow}
-      />
+      <Suspense fallback={<div>Loading...</div>}>
+        <TableComp 
+          tableData = {tableData}
+          addTableRow = {addTableRow}
+          removeTableRow = {removeTableRow}
+        />
+      </Suspense>
     </div>
   );
 }
