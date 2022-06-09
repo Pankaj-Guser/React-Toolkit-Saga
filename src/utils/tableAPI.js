@@ -1,26 +1,13 @@
-import Axios from "axios";
+import appClient from './appClient';
+import routes from './appClient/routes';
 
-const axiosDefaults = {
-  responseType: 'json',
-};
-const defaultHeaders = {
-  Accept: 'application/json',
-  'Content-Type': 'application/json',
-};
+let opts = {};
+let client = appClient(routes, opts);
 
+const tableApi = {
+  fetchData: () => {
+    return client.table_data_fetch.index()
+  }
+}
 
-const callAPI = async ( body ) => {
-  const {method, bodyData, url } = body;
-  const axiosConfig = {
-    ...axiosDefaults,
-    method: method || 'GET' ,
-    url,
-    headers: {
-      ...defaultHeaders
-    },
-    ...bodyData
-  };
-    return await Axios(axiosConfig).then((result) => result)
-  };
-
-export { callAPI };
+  export default tableApi;

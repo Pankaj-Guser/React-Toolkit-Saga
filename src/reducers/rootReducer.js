@@ -1,10 +1,8 @@
-import { combineReducers } from 'redux';
-import {
-    TableData
-} from './tableDataReducer.js';
+import { combineReducers } from "redux";
+import { TableData } from "./tableDataReducer.js";
 
 const rootReducer = combineReducers({
-    TableData
+  TableData,
 });
 
 export default rootReducer;

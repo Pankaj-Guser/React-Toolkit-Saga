@@ -1,5 +1,5 @@
 const TableData = (data) => {
-    return data;
-}
+  return data;
+};
 
-export default TableData
+export default TableData;

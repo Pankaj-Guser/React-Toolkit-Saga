@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import mockData from "../../mockData/tableMockData";
 import ActionItemsComp from "./ActionItems";
 import Table, { Utils } from "terra-table";
@@ -7,22 +7,15 @@ import "./table.scss";
 
 export default function TableComp(props) {
   const { tableData } = props;
-
   const tableHeaderData = mockData.tableHeaderMockData;
-
-  // let maxSectionCount = tableData.tabledata.length;
-
   const createCell = (cell) => ({ key: cell.key, children: cell.title });
   const createHeader = (cell) => ({ key: cell.key, children: cell.children });
-
   const createCellsForRow = (cells) => cells.map((cell) => createCell(cell));
-
   const [selectedKeys, setSelectedKeys] = useState([]);
   const handleRowToggle = (event, metaData) => {
     event.preventDefault();
     setSelectedKeys(Utils.toggleArrayValue(selectedKeys, metaData.key));
   };
-
   const createRow = (rowData) => ({
     key: rowData.key,
     cells: createCellsForRow(rowData.cells),
@@ -33,7 +26,6 @@ export default function TableComp(props) {
       toggleLabel: rowData.toggleText,
     },
   });
-
   const createRows = (data) => data.map((childItem) => createRow(childItem));
   const createHeaders = (data) =>
     data.map((childItem) => createHeader(childItem));

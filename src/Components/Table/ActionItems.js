@@ -1,13 +1,13 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import tableActions from "../../actions/tableActions"
+import tableActions from "../../actions/tableActions";
 import "./table.scss";
 
 function ActionItemsComp(props) {
   const dispatch = useDispatch();
   const tableData = useSelector((state) => state.TableData);
-  const {selectedKeys} = props
-  
+  const { selectedKeys } = props;
+
   const RemoveSelected = () => {
     let data = tableData.tabledata;
     data = data.filter((item) => selectedKeys.indexOf(item.key) === -1);
@@ -28,7 +28,10 @@ function ActionItemsComp(props) {
       ],
     };
 
-    dispatch({ type: tableActions.ADD_ROW, payload: [...tableData.tabledata, newData] });
+    dispatch({
+      type: tableActions.ADD_ROW,
+      payload: [...tableData.tabledata, newData],
+    });
   };
 
   return (

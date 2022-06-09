@@ -1,16 +1,20 @@
 import { call, takeEvery, put } from "redux-saga/effects";
 import { tableActions } from "../actions/tableActions";
-import {callAPI} from "../utils/tableAPI";
-import TableData from "../helpers/tableDataConverter"
-import mockData from "../mockData/tableMockData"
-import { tableUrl } from "../constants/tableUrl";
+import tableAPI from "../utils/tableAPI";
+import TableData from "../helpers/tableDataConverter";
+import mockData from "../mockData/tableMockData";
+// import { tableUrl } from "../constants/tableUrl";
 export function* fetchDataSaga() {
   try {
-    let result = yield call( ()=> callAPI(tableUrl));
+    let result = yield call(() => tableAPI.fetchData());
+    console.log("???????????????????????", result);
     result.data = TableData(mockData.tableBodyMockData);
-    yield put({type: tableActions.GET_TABLE_DATA, payload: result.data});
+    yield put({ type: tableActions.GET_TABLE_DATA, payload: result.data });
   } catch (e) {
-    yield put({ type: tableActions.GET_TABLE_DATA_ERROR, payload: "API server is down" });
+    yield put({
+      type: tableActions.GET_TABLE_DATA_ERROR,
+      payload: "API server is down",
+    });
   }
 }
 
