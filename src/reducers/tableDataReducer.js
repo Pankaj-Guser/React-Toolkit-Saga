@@ -7,7 +7,7 @@ const DEFAULT_ALLERGIES_STATE = {
 
 export const TableData = (state = DEFAULT_ALLERGIES_STATE, action) => {
   switch (action.type) {
-    case tableActions.GET_TABLE_DATA:
+    case tableActions.GET_TABLE_DATA_SUCCESS:
       return {
         ...state,
         tabledata: action.payload,

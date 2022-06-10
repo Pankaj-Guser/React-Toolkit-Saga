@@ -9,12 +9,12 @@ test('should load and handle table Data in case of success', async () => {
     tableApi.callAPI = jest.fn(() => Promise.resolve([tableBodyMockData]));
 
     const fakeStore = {
-        dispatch: () => dispatchedActions.push({type: tableActions.GET_TABLE_DATA, payload: tableBodyMockData}),
+        dispatch: () => dispatchedActions.push({type: tableActions.GET_TABLE_DATA_SUCCESS, payload: tableBodyMockData}),
     };
 
     await runSaga(fakeStore, fetchDataSaga).done;
     expect(tableApi.callAPI.mock.calls.length).toBe(1);
-    expect(dispatchedActions).toContainEqual({type: tableActions.GET_TABLE_DATA, payload: tableBodyMockData});
+    expect(dispatchedActions).toContainEqual({type: tableActions.GET_TABLE_DATA_SUCCESS, payload: tableBodyMockData});
 });
 
 test('should handle image load errors in case of failure', async () => {

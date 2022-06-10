@@ -9,9 +9,10 @@ function ActionItemsComp(props) {
   const { selectedKeys } = props;
 
   const RemoveSelected = () => {
-    let data = tableData.tabledata;
-    data = data.filter((item) => selectedKeys.indexOf(item.key) === -1);
-    dispatch({ type: tableActions.REMOVE_ROW, payload: data });
+    // let data = tableData.tabledata;
+    // data = data.filter((item) => selectedKeys.indexOf(item.key) === -1);
+    // dispatch({ type: tableActions.REMOVE_ROW, payload: data });
+    dispatch({type: tableActions.DELETE_SINGLE_ROW_DATA, selectedKeys})
   };
 
   const AddElement = () => {

@@ -69,9 +69,6 @@ const queryParams = (params = {}, configuredQueryParams = {}) =>
 
 const notImplementedRequestToken = () => {
   // eslint-disable-next-line
-  console.error(
-    "The auth token request method is not implemented. Returning nothing which will make a call without authentication"
-  );
   return new Promise((resolve) => {
     resolve(undefined);
   });
@@ -130,7 +127,7 @@ const buildActionHandler =
       ...axiosDefaults,
       method,
       baseURL,
-      url: buildUrl(url),
+      url: buildUrl(url, configuredPathParams, params),
       headers: {
         ...defaultHeaders,
         ...optHeaders,
