@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import mockData from "../../mockData/tableMockData";
-import ActionItemsComp from "./ActionItems";
+import ActionItemsComp from "../actionItems/actionItems";
 import Table, { Utils } from "terra-table";
-import EmptyComp from "../EmptyComp";
+import EmptyComp from "../emptyComp";
+// import InputFieldComp from "../inputField/inputField";
 import "./table.scss";
 
 export default function TableComp(props) {
@@ -53,6 +54,7 @@ export default function TableComp(props) {
               },
             ]}
           />
+          {/* <InputFieldComp /> */}
           <ActionItemsComp selectedKeys={selectedKeys} />
         </div>
       ) : (

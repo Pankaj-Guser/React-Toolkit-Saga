@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import tableActions from "../../actions/tableActions";
-import "./table.scss";
+import "../table//table.scss";
 
 function ActionItemsComp(props) {
   const dispatch = useDispatch();
@@ -21,10 +21,12 @@ function ActionItemsComp(props) {
       key: latestIndex.toString(),
       toggleText: "toggle",
       cells: [
-        { key: "cell-0", id: "toggle-0", title: "Name1" },
-        { key: "cell-1", id: "toggle-1", title: "Address" },
-        { key: "cell-2", id: "toggle-2", title: "Phone Number" },
-        { key: "cell-3", id: "toggle-3", title: "Email Id" },
+        {
+          key:'cell-0', id: 'toggle-0', title: "111"
+        },
+        {
+            key:'cell-1', id: 'toggle-1', title: "111"
+        }
       ],
     };
 

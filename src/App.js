@@ -2,7 +2,7 @@ import React from "react";
 import "./styles.css";
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import TableContainer from "./containers/tableContainer";
+import TableContainer from "./containers/dashboardContainer";
 import store from "./store";
 
 

@@ -2,7 +2,7 @@ const routes = {
   table_data_fetch: {
     index: {
       description: 'Table Data Fetch',
-      url: 'https://jsonplaceholder.typicode.com/todos/1',
+      url: 'http://localhost:8000/api/v1/tenants/5bc8222c-974b-4113-9c59-0cbf5c157ead/knowledge_basis',
       method: 'GET'
     }
   },
