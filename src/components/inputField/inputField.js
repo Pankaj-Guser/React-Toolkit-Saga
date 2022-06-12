@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import Card from "terra-card/lib/Card";
 import classNames from "classnames/bind";
 import styles from "./CardPaddingHR.scss";
-// import { useDispatch, useSelector } from "react-redux";
-// import tableActions from "../../actions/tableActions";
 import "../table/table.scss";
 const cx = classNames.bind(styles);
 

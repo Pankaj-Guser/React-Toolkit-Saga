@@ -51,7 +51,6 @@ function ActionItemsComp(props) {
         <Spacer
           className="spacerdemoprimary"
           padding="large small"
-          margin="medium large+1"
           isInlineBlock
         >
           <Button text="Create" onClick={AddElement}>
@@ -66,8 +65,6 @@ function ActionItemsComp(props) {
           paddingRight="small"
           marginTop="medium"
           marginBottom="medium"
-          marginLeft="large+1"
-          marginRight="large+1"
           isInlineBlock
         >
           <Button text="Update" onClick={UpdateSelected}>
@@ -82,8 +79,6 @@ function ActionItemsComp(props) {
           paddingRight="small"
           marginTop="medium"
           marginBottom="medium"
-          marginLeft="large+1"
-          marginRight="large+1"
           isInlineBlock
         >
           <Button text="Remove" onClick={RemoveSelected}>

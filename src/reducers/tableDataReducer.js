@@ -27,6 +27,22 @@ export const TableData = (state = DEFAULT_ALLERGIES_STATE, action) => {
         ...state,
         error: action.payload,
       };
+    case tableActions.DELETE_SINGLE_ROW_DATA_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+      };
+    case tableActions.UPDATE_SINGLE_ROW_DATA_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+      };
+    case tableActions.ADD_SINGLE_ROW_DATA_ERROR:
+    return {
+      ...state,
+      error: action.payload,
+    };
+      
     default:
       return state;
   }

@@ -3,6 +3,8 @@ import mockData from "../../mockData/tableMockData";
 import ActionItemsComp from "../actionItems/actionItems";
 import Table from "terra-table";
 import EmptyComp from "../emptyComp";
+import Spacer from "terra-spacer";
+import "../actionItems/Spacer.module.scss";
 // import cellInputField from "../inputField/cellInputField"
 import InputFieldComp from "../inputField/inputField";
 import "./table.scss";
@@ -63,27 +65,34 @@ export default function TableComp(props) {
             getFieldOneValue={getFieldOneValue}
             getFieldTwoValue={getFieldTwoValue}
           />
-
-          <Table
-            summaryId="example-multi-select"
-            summary="This table shows an implementation of multiple row selection."
-            aria-multiselectable
-            rowStyle="toggle"
-            numberOfColumns={4}
-            cellPaddingStyle="standard"
-            dividerStyle="both"
-            headerData={{
-              selectAllColumn: {
-                checkLabel: "Single Selection",
-              },
-              cells: createHeaders(tableHeaderData),
-            }}
-            bodyData={[
-              {
-                rows: createRows(tableData.tabledata),
-              },
-            ]}
-          />
+          <Spacer
+            className="spacerdemodefault"
+            paddingTop="large"
+            paddingBottom="large"
+            marginTop="medium"
+            marginBottom="medium"
+          >
+            <Table
+              summaryId="example-multi-select"
+              summary="This table shows an implementation of multiple row selection."
+              aria-multiselectable
+              rowStyle="toggle"
+              numberOfColumns={4}
+              cellPaddingStyle="standard"
+              dividerStyle="both"
+              headerData={{
+                selectAllColumn: {
+                  checkLabel: "Single Selection",
+                },
+                cells: createHeaders(tableHeaderData),
+              }}
+              bodyData={[
+                {
+                  rows: createRows(tableData.tabledata),
+                },
+              ]}
+            />
+          </Spacer>
         </div>
       ) : (
         <EmptyComp />
