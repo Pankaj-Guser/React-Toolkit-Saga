@@ -5,7 +5,7 @@ import Button from "terra-button";
 import Spacer from "terra-spacer";
 import "./Spacer.module.scss";
 // import InputFieldComp from "../inputField/inputField";
-import "../table//table.scss";
+import "../table/table.scss";
 
 function ActionItemsComp(props) {
   const dispatch = useDispatch();
