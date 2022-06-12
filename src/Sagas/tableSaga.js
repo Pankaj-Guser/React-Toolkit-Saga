@@ -15,7 +15,7 @@ export function* addDataSaga(addRowData) {
   try {
     yield call(callAPI({url:'http://localhost:8000/api/v1/tenants/5bc8222c-974b-4113-9c59-0cbf5c157ead/knowledge_basis',
     method:'POST',
-    data:addRowData}));
+    data:addRowData.createdCellData}));
     let result = yield call(() => tableAPI.fetchData());
     result = TableData(result);
     yield put({ type: tableActions.GET_TABLE_DATA_SUCCESS, payload: result });
