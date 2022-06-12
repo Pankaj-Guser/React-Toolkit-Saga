@@ -9,8 +9,6 @@ import "../table/table.scss";
 
 function ActionItemsComp(props) {
   const dispatch = useDispatch();
-
-  // const tableData = useSelector((state) => state.TableData);
   const { selectedKey, cell1Value, cell2Value } = props;
 
   const RemoveSelected = () => {

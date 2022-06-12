@@ -11,20 +11,11 @@ export default function ListTodo() {
     dispatch({ type: tableActions.FETCH_DATA_SAGA });
   }, [dispatch]);
 
-  const addTableRow = (newRow) => {
-    dispatch({ type: "ADD_ROW", payload: [...tableData.tabledata, newRow] });
-  };
-  const removeTableRow = (tableData) => {
-    dispatch({ type: "REMOVE_ROW", payload: tableData });
-  };
-
   return (
     <div>
       <Suspense fallback={<div>Loading...</div>}>
         <TableComp
           tableData={tableData}
-          addTableRow={addTableRow}
-          removeTableRow={removeTableRow}
         />
       </Suspense>
     </div>

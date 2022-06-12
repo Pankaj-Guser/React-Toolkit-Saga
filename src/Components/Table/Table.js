@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import mockData from "../../mockData/tableMockData";
 import ActionItemsComp from "../actionItems/actionItems";
 import Table from "terra-table";
@@ -11,6 +12,7 @@ import "./table.scss";
 
 export default function TableComp(props) {
   const { tableData } = props;
+  const error = useSelector((state) => state.TableData.error);
   const [selectedKey, setSelectedKey] = useState([]);
   const [cell1Value, setCell1value] = useState("");
   const [cell2Value, setCell2value] = useState("");
@@ -51,51 +53,57 @@ export default function TableComp(props) {
     data.map((childItem) => createHeader(childItem));
   return (
     <div>
-      {tableData.tabledata.length > 0 ? (
+      {error === "" ? (
         <div>
-          <ActionItemsComp
-            cell1Value={cell1Value}
-            cell2Value={cell2Value}
-            selectedKey={selectedKey}
-          />
+          {tableData.tabledata.length > 0 ? (
+            <div>
+              <ActionItemsComp
+                cell1Value={cell1Value}
+                cell2Value={cell2Value}
+                selectedKey={selectedKey}
+              />
 
-          <InputFieldComp
-            cell1Value={cell1Value}
-            cell2Value={cell2Value}
-            getFieldOneValue={getFieldOneValue}
-            getFieldTwoValue={getFieldTwoValue}
-          />
-          <Spacer
-            className="spacerdemodefault"
-            paddingTop="large"
-            paddingBottom="large"
-            marginTop="medium"
-            marginBottom="medium"
-          >
-            <Table
-              summaryId="example-multi-select"
-              summary="This table shows an implementation of multiple row selection."
-              aria-multiselectable
-              rowStyle="toggle"
-              numberOfColumns={4}
-              cellPaddingStyle="standard"
-              dividerStyle="both"
-              headerData={{
-                selectAllColumn: {
-                  checkLabel: "Single Selection",
-                },
-                cells: createHeaders(tableHeaderData),
-              }}
-              bodyData={[
-                {
-                  rows: createRows(tableData.tabledata),
-                },
-              ]}
-            />
-          </Spacer>
+              <InputFieldComp
+                cell1Value={cell1Value}
+                cell2Value={cell2Value}
+                getFieldOneValue={getFieldOneValue}
+                getFieldTwoValue={getFieldTwoValue}
+              />
+              <Spacer
+                className="spacerdemodefault"
+                paddingTop="large"
+                paddingBottom="large"
+                marginTop="medium"
+                marginBottom="medium"
+              >
+                <Table
+                  summaryId="example-multi-select"
+                  summary="This table shows an implementation of multiple row selection."
+                  aria-multiselectable
+                  rowStyle="toggle"
+                  numberOfColumns={4}
+                  cellPaddingStyle="standard"
+                  dividerStyle="both"
+                  headerData={{
+                    selectAllColumn: {
+                      checkLabel: "Single Selection",
+                    },
+                    cells: createHeaders(tableHeaderData),
+                  }}
+                  bodyData={[
+                    {
+                      rows: createRows(tableData.tabledata),
+                    },
+                  ]}
+                />
+              </Spacer>
+            </div>
+          ) : (
+            <EmptyComp />
+          )}
         </div>
       ) : (
-        <EmptyComp />
+        <div> {error}</div>
       )}
     </div>
   );
