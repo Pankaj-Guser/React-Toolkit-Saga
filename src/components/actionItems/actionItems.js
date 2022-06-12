@@ -24,7 +24,6 @@ function ActionItemsComp(props) {
         primary_criteria_cd: cell2Value,
       },
     };
-    console.log("step 1", selectedKey, updatedCellData);
     dispatch({
       type: tableActions.UPDATE_SINGLE_ROW_DATA,
       selectedKey,
@@ -43,7 +42,6 @@ function ActionItemsComp(props) {
         },
       },
     };
-    console.log("step 1", createdCellData);
     dispatch({ type: tableActions.ADD_SINGLE_ROW_DATA, createdCellData });
   };
 

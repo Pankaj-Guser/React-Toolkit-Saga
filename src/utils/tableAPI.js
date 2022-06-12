@@ -32,7 +32,6 @@ const tableApi = {
     })
   },
   addSingleRowData: (addRowData) => {
-    console.log("add data", addRowData)
     return client.table_data_single_row_add.index({
       body: addRowData
     })
