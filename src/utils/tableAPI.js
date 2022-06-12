@@ -21,6 +21,21 @@ const tableApi = {
         rowId
       }}
     );
+  },
+  updateSingleRowData: (rowId, updatedCellData) => {
+    console("update data", rowId, updatedCellData)
+    return client.table_data_single_row_update.index({
+      params: {
+        rowId: rowId
+      },
+      // body: updatedCellData
+    })
+  },
+  addSingleRowData: (addRowData) => {
+    console.log("add data", addRowData)
+    return client.table_data_single_row_add.index({
+      body: addRowData
+    })
   }
 }
 

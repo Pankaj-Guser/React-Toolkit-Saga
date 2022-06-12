@@ -1,51 +1,97 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import tableActions from "../../actions/tableActions";
+import Button from "terra-button";
+import Spacer from "terra-spacer";
+import "./Spacer.module.scss";
+// import InputFieldComp from "../inputField/inputField";
 import "../table//table.scss";
 
 function ActionItemsComp(props) {
   const dispatch = useDispatch();
-  const tableData = useSelector((state) => state.TableData);
-  const { selectedKeys } = props;
+
+  // const tableData = useSelector((state) => state.TableData);
+  const { selectedKey, cell1Value, cell2Value } = props;
 
   const RemoveSelected = () => {
-    // let data = tableData.tabledata;
-    // data = data.filter((item) => selectedKeys.indexOf(item.key) === -1);
-    // dispatch({ type: tableActions.REMOVE_ROW, payload: data });
-    dispatch({type: tableActions.DELETE_SINGLE_ROW_DATA, selectedKeys})
+    dispatch({ type: tableActions.DELETE_SINGLE_ROW_DATA, selectedKey });
+  };
+
+  const UpdateSelected = () => {
+    const updatedCellData = {
+      knowledge_basis: {
+        facility_cd: cell1Value,
+        primary_criteria_cd: cell2Value,
+      },
+    };
+    console.log("step 1", selectedKey, updatedCellData);
+    dispatch({
+      type: tableActions.UPDATE_SINGLE_ROW_DATA,
+      selectedKey,
+      updatedCellData,
+    });
   };
 
   const AddElement = () => {
-    let data = tableData.tabledata;
-    const latestIndex = parseInt(data[data.length - 1].key) + 1;
-    const newData = {
-      key: latestIndex.toString(),
-      toggleText: "toggle",
-      cells: [
-        {
-          key:'cell-0', id: 'toggle-0', title: "111"
+    const createdCellData = {
+      knowledge_basis: {
+        facility_cd: cell1Value,
+        primary_criteria_cd: cell2Value,
+        locale_code: {
+          code: cell1Value,
+          locale: cell1Value,
         },
-        {
-            key:'cell-1', id: 'toggle-1', title: "111"
-        }
-      ],
+      },
     };
-
-    dispatch({
-      type: tableActions.ADD_ROW,
-      payload: [...tableData.tabledata, newData],
-    });
+    console.log("step 1", createdCellData);
+    dispatch({ type: tableActions.ADD_SINGLE_ROW_DATA, createdCellData });
   };
 
   return (
     <>
-      <div className="btn-space">
-        <button type="button" onClick={AddElement}>
-          Add
-        </button>
-        <button type="button" onClick={RemoveSelected}>
-          Remove
-        </button>
+      <div>
+        <Spacer
+          className="spacerdemoprimary"
+          padding="large small"
+          margin="medium large+1"
+          isInlineBlock
+        >
+          <Button text="Create" onClick={AddElement}>
+            Add
+          </Button>
+        </Spacer>
+        <Spacer
+          className="spacerdemodefault"
+          paddingTop="large"
+          paddingBottom="large"
+          paddingLeft="small"
+          paddingRight="small"
+          marginTop="medium"
+          marginBottom="medium"
+          marginLeft="large+1"
+          marginRight="large+1"
+          isInlineBlock
+        >
+          <Button text="Update" onClick={UpdateSelected}>
+            Update
+          </Button>
+        </Spacer>
+        <Spacer
+          className="spacerdemodefault"
+          paddingTop="large"
+          paddingBottom="large"
+          paddingLeft="small"
+          paddingRight="small"
+          marginTop="medium"
+          marginBottom="medium"
+          marginLeft="large+1"
+          marginRight="large+1"
+          isInlineBlock
+        >
+          <Button text="Remove" onClick={RemoveSelected}>
+            Remove
+          </Button>
+        </Spacer>
       </div>
     </>
   );

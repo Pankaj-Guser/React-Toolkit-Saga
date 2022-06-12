@@ -1,21 +1,38 @@
 import React, { useState } from "react";
 import mockData from "../../mockData/tableMockData";
 import ActionItemsComp from "../actionItems/actionItems";
-import Table, { Utils } from "terra-table";
+import Table from "terra-table";
 import EmptyComp from "../emptyComp";
-// import InputFieldComp from "../inputField/inputField";
+// import cellInputField from "../inputField/cellInputField"
+import InputFieldComp from "../inputField/inputField";
 import "./table.scss";
 
 export default function TableComp(props) {
   const { tableData } = props;
+  const [selectedKey, setSelectedKey] = useState([]);
+  const [cell1Value, setCell1value] = useState("");
+  const [cell2Value, setCell2value] = useState("");
   const tableHeaderData = mockData.tableHeaderMockData;
+  const getFieldOneValue = (val) => {
+    setCell1value(val);
+  };
+  const getFieldTwoValue = (val) => {
+    setCell2value(val);
+  };
   const createCell = (cell) => ({ key: cell.key, children: cell.title });
   const createHeader = (cell) => ({ key: cell.key, children: cell.children });
   const createCellsForRow = (cells) => cells.map((cell) => createCell(cell));
-  const [selectedKeys, setSelectedKeys] = useState([]);
   const handleRowToggle = (event, metaData) => {
     event.preventDefault();
-    setSelectedKeys(Utils.toggleArrayValue(selectedKeys, metaData.key));
+    if (selectedKey !== metaData.key) {
+      let data = tableData.tabledata;
+      let selectedCellData = data.filter(
+        (data) => data.key === metaData.key && data
+      );
+      setSelectedKey(metaData.key);
+      setCell1value(selectedCellData[0].cells[0].title);
+      setCell2value(selectedCellData[0].cells[1].title);
+    }
   };
   const createRow = (rowData) => ({
     key: rowData.key,
@@ -23,7 +40,7 @@ export default function TableComp(props) {
     toggleAction: {
       metaData: { key: rowData.key },
       onToggle: handleRowToggle,
-      isToggled: selectedKeys.indexOf(rowData.key) >= 0,
+      isToggled: selectedKey.indexOf(rowData.key) >= 0,
       toggleLabel: rowData.toggleText,
     },
   });
@@ -34,6 +51,11 @@ export default function TableComp(props) {
     <div>
       {tableData.tabledata.length > 0 ? (
         <div>
+          <ActionItemsComp
+            cell1Value={cell1Value}
+            cell2Value={cell2Value}
+            selectedKey={selectedKey}
+          />
           <Table
             summaryId="example-multi-select"
             summary="This table shows an implementation of multiple row selection."
@@ -44,7 +66,7 @@ export default function TableComp(props) {
             dividerStyle="both"
             headerData={{
               selectAllColumn: {
-                checkLabel: "Multi Selection",
+                checkLabel: "Single Selection",
               },
               cells: createHeaders(tableHeaderData),
             }}
@@ -54,8 +76,14 @@ export default function TableComp(props) {
               },
             ]}
           />
-          {/* <InputFieldComp /> */}
-          <ActionItemsComp selectedKeys={selectedKeys} />
+          <InputFieldComp
+            cell1Value={cell1Value}
+            cell2Value={cell2Value}
+            getFieldOneValue={getFieldOneValue}
+            getFieldTwoValue={getFieldTwoValue}
+          />
+
+          
         </div>
       ) : (
         <EmptyComp />

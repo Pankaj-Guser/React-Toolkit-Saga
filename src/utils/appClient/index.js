@@ -122,6 +122,7 @@ const buildActionHandler =
       configuredPathParams.map((p) => removeCurlyBraces(p)) || [];
     validateParams(params, configuredPathParamKeys, configuredQParams);
 
+    // const bodyData = method !== "GET" ? formData(body) : {};
     const bodyData = method !== "GET" ? formData(body) : {};
     const axiosConfig = {
       ...axiosDefaults,
