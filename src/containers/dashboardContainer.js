@@ -1,7 +1,7 @@
 import React, { useEffect, Suspense, lazy } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { tableActions } from "../actions/tableActions";
-const TableComp = lazy(() => import("../components/table/Table"));
+const TableComp = lazy(() => import("../components/table/table"));
 
 export default function ListTodo() {
   const dispatch = useDispatch();
