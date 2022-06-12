@@ -56,6 +56,14 @@ export default function TableComp(props) {
             cell2Value={cell2Value}
             selectedKey={selectedKey}
           />
+
+          <InputFieldComp
+            cell1Value={cell1Value}
+            cell2Value={cell2Value}
+            getFieldOneValue={getFieldOneValue}
+            getFieldTwoValue={getFieldTwoValue}
+          />
+
           <Table
             summaryId="example-multi-select"
             summary="This table shows an implementation of multiple row selection."
@@ -76,14 +84,6 @@ export default function TableComp(props) {
               },
             ]}
           />
-          <InputFieldComp
-            cell1Value={cell1Value}
-            cell2Value={cell2Value}
-            getFieldOneValue={getFieldOneValue}
-            getFieldTwoValue={getFieldTwoValue}
-          />
-
-          
         </div>
       ) : (
         <EmptyComp />
