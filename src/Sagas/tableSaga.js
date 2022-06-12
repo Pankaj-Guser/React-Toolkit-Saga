@@ -1,4 +1,4 @@
-import { call, fork, put, takeLatest } from "redux-saga/effects";
+import { call, fork, put, takeEvery } from "redux-saga/effects";
 import { tableActions } from "../actions/tableActions";
 import tableAPI from "../utils/tableAPI";
 import axios from "axios";
@@ -79,21 +79,21 @@ export function* deleteDataSaga(selectedRow) {
 
 
 export function* fetchTableDataAll() {
-  yield takeLatest(tableActions.FETCH_DATA_SAGA, fetchDataSaga);
+  yield takeEvery(tableActions.FETCH_DATA_SAGA, fetchDataSaga);
 }
 
 export function* deleteTableDataSingle() {
-  yield takeLatest(tableActions.DELETE_SINGLE_ROW_DATA, deleteDataSaga);
+  yield takeEvery(tableActions.DELETE_SINGLE_ROW_DATA, deleteDataSaga);
 }
 
 export function* updateTableDataSingle() {
 
-  yield takeLatest(tableActions.UPDATE_SINGLE_ROW_DATA, updateDataSaga)
+  yield takeEvery(tableActions.UPDATE_SINGLE_ROW_DATA, updateDataSaga)
 }
 
 export function* addTableDataSingle() {
 
-  yield takeLatest(tableActions.ADD_SINGLE_ROW_DATA, addDataSaga)
+  yield takeEvery(tableActions.ADD_SINGLE_ROW_DATA, addDataSaga)
 }
 
 export default function* root() {
