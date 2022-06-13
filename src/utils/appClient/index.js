@@ -156,11 +156,6 @@ const buildResourceActions = (resourceActions = {}, options = {}) =>
     {}
   );
 
-export const getBcsToken = (options = {}) => {
-  const { requestToken } = defaultOptions(options);
-  return requestToken().then((authToken) => authToken);
-};
-
 const appClient = (routes = {}, options = {}) =>
   Object.entries(routes || {}).reduce(
     (acc, [k, v]) => ({

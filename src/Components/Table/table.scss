@@ -28,4 +28,19 @@ tr:hover {
   background-color: transparent;
   border-color: transparent;
 }
+.Table_body__wmTaM {
+  background-color: var(--terra-table-body-background-color);
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: scroll !important;
+    max-height: 40.4rem !important;
+}
+
+.float-right {
+  float: right;
+}
+
+.mb-0 {
+  margin-bottom: 0px;
+}
 

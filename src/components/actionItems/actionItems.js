@@ -3,18 +3,40 @@ import { useDispatch } from "react-redux";
 import tableActions from "../../actions/tableActions";
 import Button from "terra-button";
 import Spacer from "terra-spacer";
-import "./Spacer.module.scss";
+
+// import classNames from 'classnames/bind';
+// import DialogModal from 'terra-dialog-modal';
+// import styles from './DialogModalWithCustomHeaderAndCustomFooter.module.scss';
 // import InputFieldComp from "../inputField/inputField";
 import "../table/table.scss";
+import "./Spacer.module.scss";
 
+// const cx = classNames.bind(styles);
 function ActionItemsComp(props) {
   const dispatch = useDispatch();
   const { selectedKey, cell1Value, cell2Value } = props;
 
+  // const [isOpen, setIsOpen] = useState(false)
   const RemoveSelected = () => {
     dispatch({ type: tableActions.DELETE_SINGLE_ROW_DATA, selectedKey });
   };
+  // const handleOpenModal =() =>{
+  //   setIsOpen(true );
+  // }
 
+  // const handleCloseModal =() => {
+  //   setIsOpen(false );
+  // }
+  // const text = ['Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
+  //     'Maecenas molestie in lorem vel facilisis. Quisque ac enim nec lectus malesuada faucibus.',
+  //     'Integer congue feugiat ultricies.',
+  //     ' Nunc non mauris sed tellus cursus vestibulum nec quis ipsum.',
+  //     'Vivamus ornare magna justo, et volutpat tortor congue ut. Nulla facilisi.',
+  //     ' Cras in venenatis turpis. Nullam id odio justo. Etiam vehicula lectus vel purus consectetur cursus id sit amet diam.',
+  //     'Donec facilisis dui non orci hendrerit pharetra. Suspendisse blandit dictum turpis, in consectetur ipsum hendrerit eget.',
+  //     'Nam vehicula, arcu vitae egestas porttitor,',
+  //     'turpis nisi pulvinar neque, ut lacinia urna purus sit amet elit.'];
+  
   const UpdateSelected = () => {
     const updatedCellData = {
       knowledge_basis: {
@@ -42,10 +64,25 @@ function ActionItemsComp(props) {
     };
     dispatch({ type: tableActions.ADD_SINGLE_ROW_DATA, createdCellData });
   };
-
+console.log("selected key >>>>>", selectedKey)
   return (
     <>
-      <div>
+    {/* <DialogModal
+          ariaLabel="Dialog Modal"
+          isOpen={isOpen}
+          onRequestClose={handleCloseModal}
+          header={(
+            <div >
+              Custom Header
+              <Button id="close-dialog-modal" text="Close"  onClick={handleCloseModal} />
+            </div>
+)}
+          footer={<div>Custom Footer</div>}
+        >
+          <p>{text}</p>
+        </DialogModal>
+        <Button text="Trigger Dialog Modal" onClick={handleOpenModal} /> */}
+      <div className="float-right" >
         <Spacer
           className="spacerdemoprimary"
           padding="large small"
@@ -65,7 +102,7 @@ function ActionItemsComp(props) {
           marginBottom="medium"
           isInlineBlock
         >
-          <Button text="Update" onClick={UpdateSelected}>
+          <Button isDisabled={selectedKey.length> 0 || selectedKey[0] !== undefined ? false : true} text="Update" onClick={UpdateSelected}>
             Update
           </Button>
         </Spacer>
@@ -79,7 +116,7 @@ function ActionItemsComp(props) {
           marginBottom="medium"
           isInlineBlock
         >
-          <Button text="Remove" onClick={RemoveSelected}>
+          <Button isDisabled={selectedKey.length> 0 || selectedKey[0] !== undefined ? false : true} text="Remove" onClick={RemoveSelected}>
             Remove
           </Button>
         </Spacer>

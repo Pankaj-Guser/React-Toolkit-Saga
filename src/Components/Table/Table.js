@@ -1,18 +1,23 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import mockData from "../../mockData/tableMockData";
 import ActionItemsComp from "../actionItems/actionItems";
 import Table from "terra-table";
 import EmptyComp from "../emptyComp";
 import Spacer from "terra-spacer";
+import { useHistory } from "react-router-dom";
 import "../actionItems/Spacer.module.scss";
 // import cellInputField from "../inputField/cellInputField"
 import InputFieldComp from "../inputField/inputField";
 import "./table.scss";
+import tableActions from "../../actions/tableActions";
 
 export default function TableComp(props) {
   const { tableData } = props;
+  let history = useHistory();
+  const dispatch = useDispatch();
   const error = useSelector((state) => state.TableData.error);
+  const selectedCellKey = useSelector((state) => state.TableData.selectedCellKey)
   const [selectedKey, setSelectedKey] = useState([]);
   const [cell1Value, setCell1value] = useState("");
   const [cell2Value, setCell2value] = useState("");
@@ -20,6 +25,10 @@ export default function TableComp(props) {
   const getFieldOneValue = (val) => {
     setCell1value(val);
   };
+  
+  useEffect(() => {
+  selectedKey.push(selectedCellKey)
+  }, [selectedCellKey])
   const getFieldTwoValue = (val) => {
     setCell2value(val);
   };
@@ -36,6 +45,15 @@ export default function TableComp(props) {
       setSelectedKey(metaData.key);
       setCell1value(selectedCellData[0].cells[0].title);
       setCell2value(selectedCellData[0].cells[1].title);
+      dispatch({type: tableActions.SET_SELECTED_CELL_KEY, payload: metaData.key})
+      history.push("/selectedRowDetails", selectedCellData);
+    } 
+    else {
+      setSelectedKey([]);
+      setCell1value("");
+      setCell2value("");
+      // dispatch({type: tableActions.SET_SELECTED_CELL_KEY, payload: []})
+
     }
   };
   const createRow = (rowData) => ({
@@ -57,31 +75,34 @@ export default function TableComp(props) {
         <div>
           {tableData.tabledata.length > 0 ? (
             <div>
-              <ActionItemsComp
-                cell1Value={cell1Value}
-                cell2Value={cell2Value}
-                selectedKey={selectedKey}
-              />
-
-              <InputFieldComp
+              {/* <InputFieldComp
                 cell1Value={cell1Value}
                 cell2Value={cell2Value}
                 getFieldOneValue={getFieldOneValue}
                 getFieldTwoValue={getFieldTwoValue}
-              />
+              /> */}
               <Spacer
                 className="spacerdemodefault"
+                // paddingTop="large"
+                paddingBottom="large"
+                // marginTop="medium"
+                marginBottom="medium"
+              >
+                <Spacer
+                className="spacerdemodefault mb-0"
                 paddingTop="large"
                 paddingBottom="large"
                 marginTop="medium"
                 marginBottom="medium"
-              >
+                >
+                  knowledge_basis Details
+                </Spacer> 
                 <Table
                   summaryId="example-multi-select"
                   summary="This table shows an implementation of multiple row selection."
                   aria-multiselectable
                   rowStyle="toggle"
-                  numberOfColumns={4}
+                  numberOfColumns={2}
                   cellPaddingStyle="standard"
                   dividerStyle="both"
                   headerData={{
@@ -96,6 +117,12 @@ export default function TableComp(props) {
                     },
                   ]}
                 />
+
+              <ActionItemsComp
+                cell1Value={cell1Value}
+                cell2Value={cell2Value}
+                selectedKey={selectedKey}
+              />
               </Spacer>
             </div>
           ) : (

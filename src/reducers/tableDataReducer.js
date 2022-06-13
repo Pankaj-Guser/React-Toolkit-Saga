@@ -42,7 +42,11 @@ export const TableData = (state = DEFAULT_ALLERGIES_STATE, action) => {
       ...state,
       error: action.payload,
     };
-      
+    case tableActions.SET_SELECTED_CELL_KEY:
+    return {
+      ...state,
+      selectedCellKey: action.payload
+    }
     default:
       return state;
   }
