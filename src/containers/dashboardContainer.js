@@ -30,7 +30,7 @@ export default function ListTodo() {
           <Grid.Column tiny={3} medium={3} small={3} huge={3} enormous={3}>
             <Card variant="raised">
               <Card.Body>
-                <label>This is the list of of your clinical reports. In case of discrepancy do not contact anyone.</label>
+                <label>This is the list of of your knowledge_basis. In case of discrepancy do not contact anyone.</label>
               </Card.Body>
             </Card>
           </Grid.Column>
