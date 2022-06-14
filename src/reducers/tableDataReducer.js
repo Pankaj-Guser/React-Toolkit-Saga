@@ -43,9 +43,13 @@ export const TableData = (state = DEFAULT_ALLERGIES_STATE, action) => {
       error: action.payload,
     };
     case tableActions.SET_SELECTED_CELL_KEY:
+console.log("aaaaaaaaa", action.payload)
     return {
       ...state,
-      selectedCellKey: action.payload
+      selectedCellKey: action.payload[0].key,
+      cell1InputData: action.payload[0].cells[0].title,
+      cell2InputData: action.payload[0].cells[1].title 
+
     }
     default:
       return state;

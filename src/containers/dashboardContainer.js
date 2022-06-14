@@ -4,6 +4,7 @@ import { tableActions } from "../actions/tableActions";
 import Grid from "terra-grid";
 import Card from "terra-card/lib/Card";
 import "./GridExample.module.scss";
+import "./dashboardContainer.scss"
 const TableComp = lazy(() => import("../components/table/table"));
 
 export default function ListTodo() {
@@ -15,7 +16,7 @@ export default function ListTodo() {
   }, [dispatch]);
 
   return (
-    <div>
+    <div className="parent-style">
       <Grid>
         <Grid.Row>
           <Grid.Column tiny={9} medium={9} small={9} huge={9} enormous={9}>

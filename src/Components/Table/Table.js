@@ -1,36 +1,99 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import mockData from "../../mockData/tableMockData";
-import ActionItemsComp from "../actionItems/actionItems";
+// import ActionItemsComp from "../actionItems/actionItems";
 import Table from "terra-table";
 import EmptyComp from "../emptyComp";
+import Card from "terra-card/lib/Card";
+import classNames from "classnames/bind";
+import Button from "terra-button";
 import Spacer from "terra-spacer";
 import { useHistory } from "react-router-dom";
 import "../actionItems/Spacer.module.scss";
 // import cellInputField from "../inputField/cellInputField"
-import InputFieldComp from "../inputField/inputField";
-import "./table.scss";
 import tableActions from "../../actions/tableActions";
+import InputFieldComp from "../inputField/inputField";
+import styles from "./CardPaddingHR.scss";
+import "../table/table.scss";
+import "./Spacer.module.scss";
+import "./table.scss";
 
+const cx = classNames.bind(styles);
 export default function TableComp(props) {
   const { tableData } = props;
+  console.log("??????>>><<>><", props);
   let history = useHistory();
   const dispatch = useDispatch();
   const error = useSelector((state) => state.TableData.error);
-  const selectedCellKey = useSelector((state) => state.TableData.selectedCellKey)
-  const [selectedKey, setSelectedKey] = useState([]);
-  const [cell1Value, setCell1value] = useState("");
-  const [cell2Value, setCell2value] = useState("");
-  const tableHeaderData = mockData.tableHeaderMockData;
-  const getFieldOneValue = (val) => {
-    setCell1value(val);
-  };
+  const selectedCellKey = useSelector(
+    (state) => state.TableData.selectedCellKey
+  );
+  const cell1InputData = useSelector((state) => state.TableData.cell1InputData)
+  const cell2InputData = useSelector((state) => state.TableData.cell2InputData)
+  const [cell1Value, setCell1value] = useState(cell1InputData ? cell1InputData : "");
+  const [cell2Value, setCell2value] = useState(cell2InputData ? cell2InputData : "");
+  // const [cell1Value, setCell1value] = useState("");
+  // const [cell2Value, setCell2value] = useState("");
   
+  const [passedValue, setPassedValue] = useState('');
+const PassValueUpdate = () => {
+  setPassedValue("update")
+}
+
+const PassValueAdd = () => {
+  setPassedValue("Add")
+  setCell1value("")
+  setCell2value("")
+}
+
+  const [selectedKey, setSelectedKey] = useState([]);
+  const tableHeaderData = mockData.tableHeaderMockData;
   useEffect(() => {
-  selectedKey.push(selectedCellKey)
-  }, [selectedCellKey])
-  const getFieldTwoValue = (val) => {
-    setCell2value(val);
+    selectedKey.push(selectedCellKey);
+  }, [selectedCellKey]);
+
+  const RemoveSelected = () => {
+    dispatch({ type: tableActions.DELETE_SINGLE_ROW_DATA, selectedKey });
+  };
+  const UpdateSelected = () => {
+    const updatedCellData = {
+      knowledge_basis: {
+        facility_cd: cell1Value,
+        primary_criteria_cd: cell2Value,
+      },
+    };
+    dispatch({
+      type: tableActions.UPDATE_SINGLE_ROW_DATA,
+      selectedKey,
+      updatedCellData,
+    });
+  };
+
+  const AddElement = () => {
+    const createdCellData = {
+      knowledge_basis: {
+        facility_cd: cell1Value,
+        primary_criteria_cd: cell2Value,
+        locale_code: {
+          code: cell1Value,
+          locale: cell1Value,
+        },
+      },
+    };
+    dispatch({ type: tableActions.ADD_SINGLE_ROW_DATA, createdCellData });
+  };
+  const handleFieldOne = (event) => {
+    setCell1value(event.target.value);
+  };
+
+  const ResetFields = () => {
+    setSelectedKey([])
+    setCell1value("")
+    setCell2value("")
+  }
+
+  const handleFieldTwo = (event) => {
+    setCell2value(event.target.value);
   };
   const createCell = (cell) => ({ key: cell.key, children: cell.title });
   const createHeader = (cell) => ({ key: cell.key, children: cell.children });
@@ -45,15 +108,16 @@ export default function TableComp(props) {
       setSelectedKey(metaData.key);
       setCell1value(selectedCellData[0].cells[0].title);
       setCell2value(selectedCellData[0].cells[1].title);
-      dispatch({type: tableActions.SET_SELECTED_CELL_KEY, payload: metaData.key})
+      dispatch({
+        type: tableActions.SET_SELECTED_CELL_KEY,
+        payload: selectedCellData
+      });
       history.push("/selectedRowDetails", selectedCellData);
-    } 
-    else {
+    } else {
       setSelectedKey([]);
       setCell1value("");
       setCell2value("");
       // dispatch({type: tableActions.SET_SELECTED_CELL_KEY, payload: []})
-
     }
   };
   const createRow = (rowData) => ({
@@ -71,66 +135,190 @@ export default function TableComp(props) {
     data.map((childItem) => createHeader(childItem));
   return (
     <div>
-      {error === "" ? (
+      {tableData.tabledata.length > 0 ? (
         <div>
-          {tableData.tabledata.length > 0 ? (
-            <div>
-              {/* <InputFieldComp
-                cell1Value={cell1Value}
-                cell2Value={cell2Value}
-                getFieldOneValue={getFieldOneValue}
-                getFieldTwoValue={getFieldTwoValue}
-              /> */}
-              <Spacer
-                className="spacerdemodefault"
-                // paddingTop="large"
-                paddingBottom="large"
-                // marginTop="medium"
-                marginBottom="medium"
-              >
-                <Spacer
-                className="spacerdemodefault mb-0"
-                paddingTop="large"
-                paddingBottom="large"
-                marginTop="medium"
-                marginBottom="medium"
-                >
-                  knowledge_basis Details
-                </Spacer> 
-                <Table
-                  summaryId="example-multi-select"
-                  summary="This table shows an implementation of multiple row selection."
-                  aria-multiselectable
-                  rowStyle="toggle"
-                  numberOfColumns={2}
-                  cellPaddingStyle="standard"
-                  dividerStyle="both"
-                  headerData={{
-                    selectAllColumn: {
-                      checkLabel: "Single Selection",
-                    },
-                    cells: createHeaders(tableHeaderData),
-                  }}
-                  bodyData={[
-                    {
-                      rows: createRows(tableData.tabledata),
-                    },
-                  ]}
-                />
-
-              <ActionItemsComp
-                cell1Value={cell1Value}
-                cell2Value={cell2Value}
-                selectedKey={selectedKey}
-              />
-              </Spacer>
+          <div
+            class="modal fade"
+            id="exampleModal"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">
+                  Input Fields
+                  </h5>
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <Card>
+                    <Card.Body>
+                      <input
+                        type="text"
+                        value={cell1Value !== "" ? cell1Value : ""}
+                        placeholder="facility_cd"
+                        onChange={handleFieldOne}
+                      />
+                    </Card.Body>
+                    <hr className={cx("horizontal-rule")} />
+                    <Card.Body>
+                      <input
+                        type="text"
+                        value={cell2Value !== "" ? cell2Value : ""}
+                        placeholder="primary_criteria_cd"
+                        onChange={handleFieldTwo}
+                      />
+                    </Card.Body>
+                  </Card>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    data-dismiss="modal"
+                    onClick={passedValue === "Add" ? AddElement : UpdateSelected}
+                  >
+                    Save changes
+                  </button>
+                </div>
+              </div>
             </div>
-          ) : (
-            <EmptyComp />
-          )}
+          </div>
+          <Spacer
+            className="spacerdemodefault mb-0"
+            paddingTop="large"
+            paddingBottom="large"
+            marginTop="medium"
+            marginBottom="medium"
+          >
+            knowledge_basis Details
+          </Spacer>
+          <Table
+            summaryId="example-multi-select"
+            summary="This table shows an implementation of multiple row selection."
+            aria-multiselectable
+            rowStyle="toggle"
+            numberOfColumns={2}
+            cellPaddingStyle="standard"
+            dividerStyle="both"
+            headerData={{
+              selectAllColumn: {
+                checkLabel: "Single Selection",
+              },
+              cells: createHeaders(tableHeaderData),
+            }}
+            bodyData={[
+              {
+                rows: createRows(tableData.tabledata),
+              },
+            ]}
+          />
+          <div className="float-left" >
+          <Spacer
+              className="spacerdemodefault"
+              paddingTop="large"
+              paddingBottom="large"
+              paddingLeft="small"
+              paddingRight="small"
+              marginTop="medium"
+              marginBottom="medium"
+              isInlineBlock
+            >
+              <Button
+                isDisabled={
+                  selectedKey.length > 0 && selectedCellKey !== undefined
+                    ? false
+                    : true
+                }
+                text="Reset"
+                onClick={ResetFields}
+              >
+                Remove
+              </Button>
+            </Spacer>
+          </div>
+          <div className="float-right">
+            <Spacer
+              className="spacerdemoprimary"
+              padding="large small"
+              isInlineBlock
+            >
+              <Button
+                text="Create"
+                data-toggle="modal"
+                data-target="#exampleModal"
+                onClick={PassValueAdd}
+              >
+                Create
+              </Button>
+            </Spacer>
+            <Spacer
+              className="spacerdemodefault"
+              paddingTop="large"
+              paddingBottom="large"
+              paddingLeft="small"
+              paddingRight="small"
+              marginTop="medium"
+              marginBottom="medium"
+              isInlineBlock
+            >
+              <Button
+                isDisabled={
+                  selectedKey.length > 0 && selectedCellKey !== undefined
+                    ? false
+                    : true
+                }
+                text="Update"
+                data-toggle="modal"
+                data-target="#exampleModal"
+                onClick={PassValueUpdate}
+              >
+                Update
+              </Button>
+            </Spacer>
+            <Spacer
+              className="spacerdemodefault"
+              paddingTop="large"
+              paddingBottom="large"
+              paddingLeft="small"
+              paddingRight="small"
+              marginTop="medium"
+              marginBottom="medium"
+              isInlineBlock
+            >
+              <Button
+                isDisabled={
+                  selectedKey.length > 0 && selectedCellKey !== undefined
+                    ? false
+                    : true
+                }
+                text="Remove"
+                onClick={RemoveSelected}
+              >
+                Remove
+              </Button>
+            </Spacer>
+          </div>
         </div>
       ) : (
-        <div> {error}</div>
+        <EmptyComp />
       )}
     </div>
   );

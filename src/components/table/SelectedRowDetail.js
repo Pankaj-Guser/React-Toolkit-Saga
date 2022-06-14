@@ -3,12 +3,13 @@ import Grid from "terra-grid";
 import Spacer from "terra-spacer";
 
 import Card from "terra-card/lib/Card";
+import "./SelectedRowDetails.scss"
 
 function SelectedRowDetails(props) {
   console.log("metadata", props);
 
   return (
-    <div>
+    <div className="parent-style" >
       <Card variant="raised">
         <Spacer
           className="spacerdemoprimary"
