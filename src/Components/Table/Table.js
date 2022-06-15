@@ -24,27 +24,32 @@ export default function TableComp(props) {
   console.log("??????>>><<>><", props);
   let history = useHistory();
   const dispatch = useDispatch();
+  const columnKeys = ["column-0", "column-1"];
   const error = useSelector((state) => state.TableData.error);
   const selectedCellKey = useSelector(
     (state) => state.TableData.selectedCellKey
   );
-  const cell1InputData = useSelector((state) => state.TableData.cell1InputData)
-  const cell2InputData = useSelector((state) => state.TableData.cell2InputData)
-  const [cell1Value, setCell1value] = useState(cell1InputData ? cell1InputData : "");
-  const [cell2Value, setCell2value] = useState(cell2InputData ? cell2InputData : "");
+  const cell1InputData = useSelector((state) => state.TableData.cell1InputData);
+  const cell2InputData = useSelector((state) => state.TableData.cell2InputData);
+  const [cell1Value, setCell1value] = useState(
+    cell1InputData ? cell1InputData : ""
+  );
+  const [cell2Value, setCell2value] = useState(
+    cell2InputData ? cell2InputData : ""
+  );
   // const [cell1Value, setCell1value] = useState("");
   // const [cell2Value, setCell2value] = useState("");
-  
-  const [passedValue, setPassedValue] = useState('');
-const PassValueUpdate = () => {
-  setPassedValue("update")
-}
 
-const PassValueAdd = () => {
-  setPassedValue("Add")
-  setCell1value("")
-  setCell2value("")
-}
+  const [passedValue, setPassedValue] = useState("");
+  const PassValueUpdate = () => {
+    setPassedValue("update");
+  };
+
+  const PassValueAdd = () => {
+    setPassedValue("Add");
+    setCell1value("");
+    setCell2value("");
+  };
 
   const [selectedKey, setSelectedKey] = useState([]);
   const tableHeaderData = mockData.tableHeaderMockData;
@@ -87,10 +92,10 @@ const PassValueAdd = () => {
   };
 
   const ResetFields = () => {
-    setSelectedKey([])
-    setCell1value("")
-    setCell2value("")
-  }
+    setSelectedKey([]);
+    setCell1value("");
+    setCell2value("");
+  };
 
   const handleFieldTwo = (event) => {
     setCell2value(event.target.value);
@@ -110,7 +115,7 @@ const PassValueAdd = () => {
       setCell2value(selectedCellData[0].cells[1].title);
       dispatch({
         type: tableActions.SET_SELECTED_CELL_KEY,
-        payload: selectedCellData
+        payload: selectedCellData,
       });
       history.push("/selectedRowDetails", selectedCellData);
     } else {
@@ -118,6 +123,40 @@ const PassValueAdd = () => {
       setCell1value("");
       setCell2value("");
       // dispatch({type: tableActions.SET_SELECTED_CELL_KEY, payload: []})
+    }
+  };
+  const sortData = (data, sortColumn) => {
+    if (!sortColumn) {
+      return data;
+    }
+
+    const dataCopy = Object.assign([], data);
+    dataCopy.sort((a, b) => {
+      const x = a.cells[columnKeys.indexOf(sortColumn.key)].title.toLowerCase();
+      const y = b.cells[columnKeys.indexOf(sortColumn.key)].title.toLowerCase();
+      if (x < y) {
+        return -1;
+      }
+      if (x > y) {
+        return 1;
+      }
+      return 0;
+    });
+
+    return sortColumn.sortDesc ? dataCopy.reverse() : dataCopy;
+  };
+
+  const [sortColumn, setSortColumn] = useState({
+    key: columnKeys[0],
+    sortDesc: false,
+  });
+
+  const handleSortClick = (event, metaData) => {
+    event.preventDefault();
+    if (sortColumn.key !== metaData.key) {
+      setSortColumn({ key: metaData.key, sortDesc: false });
+    } else {
+      setSortColumn({ key: metaData.key, sortDesc: !sortColumn.sortDesc });
     }
   };
   const createRow = (rowData) => ({
@@ -130,7 +169,20 @@ const PassValueAdd = () => {
       toggleLabel: rowData.toggleText,
     },
   });
-  const createRows = (data) => data.map((childItem) => createRow(childItem));
+  const createRows = (data) => {
+    const sortedData = sortData(data, sortColumn);
+    return sortedData.map((childItem) => createRow(childItem));
+  };
+
+  const createHeaderCell = (key, title) => ({
+    key,
+    id: `header-${key}`,
+    metaData: { key },
+    onSortAction: handleSortClick,
+    isSortDesc: sortColumn.key === key ? sortColumn.sortDesc : false,
+    isSortActive: sortColumn.key === key,
+    children: title,
+  });
   const createHeaders = (data) =>
     data.map((childItem) => createHeader(childItem));
   return (
@@ -149,7 +201,7 @@ const PassValueAdd = () => {
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="exampleModalLabel">
-                  Input Fields
+                    Input Fields
                   </h5>
                   <button
                     type="button"
@@ -182,21 +234,23 @@ const PassValueAdd = () => {
                   </Card>
                 </div>
                 <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-primary"
-                    data-dismiss="modal"
-                    onClick={passedValue === "Add" ? AddElement : UpdateSelected}
-                  >
-                    Save changes
-                  </button>
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      data-dismiss="modal"
+                      onClick={
+                        passedValue === "Add" ? AddElement : UpdateSelected
+                      }
+                    >
+                      Save changes
+                    </button>
                 </div>
               </div>
             </div>
@@ -222,7 +276,11 @@ const PassValueAdd = () => {
               selectAllColumn: {
                 checkLabel: "Single Selection",
               },
-              cells: createHeaders(tableHeaderData),
+              // cells: createHeaders(tableHeaderData),
+              cells: [
+                createHeaderCell(columnKeys[0], "facility_cd"),
+                createHeaderCell(columnKeys[1], "primary_criteria_cd"),
+              ],
             }}
             bodyData={[
               {
@@ -230,8 +288,8 @@ const PassValueAdd = () => {
               },
             ]}
           />
-          <div className="float-left" >
-          <Spacer
+          <div className="float-left">
+            <Spacer
               className="spacerdemodefault"
               paddingTop="large"
               paddingBottom="large"
