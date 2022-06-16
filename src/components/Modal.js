@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "terra-button";
 import InputFieldComp from "./inputField/inputField";
 
 function ModalComp(props) {
@@ -47,14 +48,13 @@ function ModalComp(props) {
               />
             </div>
             <div class="modal-footer">
-              <button
+              <Button
                 type="button"
+                text="Save"
                 class="btn btn-primary"
                 data-dismiss="modal"
                 onClick={handleSave}
-              >
-                Save changes
-              </button>
+              />
             </div>
           </div>
         </div>
