@@ -17,6 +17,7 @@ export function* addDataSaga(addRowData) {
     const response = yield call( () => callAPI({url:'http://localhost:8000/api/v1/tenants/5bc8222c-974b-4113-9c59-0cbf5c157ead/knowledge_basis',
     method:'POST',
     data:addRowData.createdCellData}));
+    // const response = yield call(() => tableAPI.updateSingleRowData, addRowData.createdCellData);
     if(response.success === true) {
       let result = yield call(() => tableAPI.fetchData());
       result = TableData(result);
@@ -35,6 +36,7 @@ export function* updateDataSaga(bodyData) {
     const response = yield call(() => callAPI({url:'http://localhost:8000/api/v1/tenants/5bc8222c-974b-4113-9c59-0cbf5c157ead/knowledge_basis/'+bodyData.selectedKey,
     method:'PUT',
     data:bodyData.updatedCellData}));
+    // const response = yield call(() => tableAPI.updateSingleRowData, bodyData.selectedKey[0], bodyData.updatedCellData);
     if(response.success === true) {
       // yield call(() => tableAPI.updateSingleRowData, bodyData.selectedKey, bodyData.updatedCellData);
       let result = yield call(() => tableAPI.fetchData());
@@ -76,7 +78,18 @@ export function* deleteDataSaga(selectedRow) {
   }
 }
 
+export function* getPolicyText() {
+  try{
+      let result = yield call(() => tableAPI.getPolicyText());
+      yield put({type: tableActions.GET_POLICY_TEXT_SUCCESS, payload: result.data[0].locale_texts_data[1].content})
+  } catch(e) {
+    yield put({type: tableActions.GET_POLICY_TEXT_ERROR, payload: "API server is down"})
+  }
+}
 
+export function* fetchPolicyText() {
+  yield takeEvery(tableActions.GET_POLICY_TEXT, getPolicyText);
+}
 
 export function* fetchTableDataAll() {
   yield takeEvery(tableActions.FETCH_DATA_SAGA, fetchDataSaga);
@@ -101,4 +114,5 @@ export default function* root() {
   yield fork(deleteTableDataSingle);
   yield fork(updateTableDataSingle);
   yield fork(addTableDataSingle);
+  yield fork(fetchPolicyText);
 }

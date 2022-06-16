@@ -32,8 +32,8 @@ tr:hover {
   background-color: var(--terra-table-body-background-color);
     flex: 1 1 auto;
     min-height: 0;
-    // overflow: scroll !important;
-    max-height: 40.4rem !important;
+    overflow: scroll;
+    max-height: 40.6rem !important;
 }
 
 .float-right {

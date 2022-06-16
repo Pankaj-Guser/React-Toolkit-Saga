@@ -6,6 +6,13 @@ const routes = {
       method: 'GET'
     }
   },
+  get_policy_text: {
+    index: {
+      description: 'Get Policy Text',
+      url: 'http://localhost:8000/api/v1/tenants/5bc8222c-974b-4113-9c59-0cbf5c157ead/policy_texts',
+      method: 'GET'
+    }
+  },
   table_data_single_row_delete: {
     index: {
       description: 'Delete Single Row',

@@ -50,7 +50,17 @@ console.log("aaaaaaaaa", action.payload)
       cell1InputData: action.payload[0].cells[0].title,
       cell2InputData: action.payload[0].cells[1].title 
 
-    }
+    };
+    case tableActions.GET_POLICY_TEXT_SUCCESS:
+      return {
+        ...state,
+        policyText: action.payload,
+      };
+    case tableActions.GET_POLICY_TEXT_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+      };
     default:
       return state;
   }

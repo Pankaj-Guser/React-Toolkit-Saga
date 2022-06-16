@@ -1,27 +1,38 @@
 import React from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import tableActions from "../../actions/tableActions";
-import "../table/table.scss";
+import Card from "terra-card/lib/Card";
+import classNames from "classnames/bind";
+import styles from "./CardPaddingHR.scss";
 
+const cx = classNames.bind(styles);
 function InputFieldComp(props) {
-//   const dispatch = useDispatch();
-//   const tableData = useSelector((state) => state.TableData);
+  const { cell2Value, cell1Value, UpdateCell1Value, UpdateCell2Value, passedValue } = props;
 
-const handleFieldOne = (event) => {
+  const handleFieldOne = (event) => UpdateCell1Value(event.target.value);
 
-}
+  const handleFieldTwo = (event) => UpdateCell2Value(event.target.value);
 
-const handleFieldTwo = (event) => {
-    
-}
-  
   return (
-    <>
-      <div>
-        <input type="text" placeholder="input field 1" onClick={(e) => handleFieldOne(e)} />
-        <input type="text" placeholder="input field 2" onClick={(e) => handleFieldTwo(e)} />
-      </div>
-    </>
+    <div>
+      <Card>
+        <Card.Body>
+          <input
+            type="text"
+            value={ cell1Value !== "" ? cell1Value : ""}
+            placeholder="facility_cd"
+            onChange={handleFieldOne}
+          />
+        </Card.Body>
+        <hr className={cx("horizontal-rule")} />
+        <Card.Body>
+          <input
+            type="text"
+            value={cell2Value !== "" ? cell2Value :""}
+            placeholder="primary_criteria_cd"
+            onChange={handleFieldTwo}
+          />
+        </Card.Body>
+      </Card>
+    </div>
   );
 }
 

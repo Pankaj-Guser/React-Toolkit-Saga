@@ -15,6 +15,9 @@ const tableApi = {
   fetchData: () => {
     return client.table_data_fetch.index()
   },
+  getPolicyText: () => {
+    return client.get_policy_text.index()
+  },
   deleteSingleRowData: (rowId) => {
     return client.table_data_single_row_delete.index({
       params: {
@@ -28,7 +31,7 @@ const tableApi = {
       params: {
         rowId: rowId
       },
-      // body: updatedCellData
+      body: updatedCellData
     })
   },
   addSingleRowData: (addRowData) => {

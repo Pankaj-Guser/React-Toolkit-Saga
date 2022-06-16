@@ -1,52 +1,161 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import tableActions from "../../actions/tableActions";
+// import InputFieldComp from "../inputField/inputField";
+import Button from "terra-button";
+import Spacer from "terra-spacer";
 import "../table//table.scss";
+import ModalComp from "../Modal";
 
 function ActionItemsComp(props) {
+  const [passedValue, setPassedValue] = useState("");
   const dispatch = useDispatch();
-  const tableData = useSelector((state) => state.TableData);
-  const { selectedKeys } = props;
+  const {
+    selectedKey,
+    selectedStoredKey,
+    cell1Value,
+    cell2Value,
+    UpdateSelectedKey,
+    UpdateCell1Value,
+    UpdateCell2Value,
+  } = props;
+
+  const PassValueUpdate = () => {
+    setPassedValue("update");
+  };
+
+  const PassValueAdd = () => {
+    console.log(">>>>>>>>>>>", cell1Value, cell2Value)
+    setPassedValue("Add");
+    // UpdateCell1Value("");
+    // UpdateCell2Value("");
+  };
+  const UpdateSelected = () => {
+    const updatedCellData = {
+      knowledge_basis: {
+        facility_cd: cell1Value,
+        primary_criteria_cd: cell2Value,
+      },
+    };
+    dispatch({
+      type: tableActions.UPDATE_SINGLE_ROW_DATA,
+      selectedKey,
+      updatedCellData,
+    });
+  };
 
   const RemoveSelected = () => {
-    // let data = tableData.tabledata;
-    // data = data.filter((item) => selectedKeys.indexOf(item.key) === -1);
-    // dispatch({ type: tableActions.REMOVE_ROW, payload: data });
-    console.log("step1", selectedKeys)
-    dispatch({type: tableActions.DELETE_SINGLE_ROW_DATA, selectedKeys})
+    dispatch({ type: tableActions.DELETE_SINGLE_ROW_DATA, selectedKey });
   };
 
   const AddElement = () => {
-    let data = tableData.tabledata;
-    const latestIndex = parseInt(data[data.length - 1].key) + 1;
-    const newData = {
-      key: latestIndex.toString(),
-      toggleText: "toggle",
-      cells: [
-        {
-          key:'cell-0', id: 'toggle-0', title: "111"
+    const createdCellData = {
+      knowledge_basis: {
+        facility_cd: cell1Value,
+        primary_criteria_cd: cell2Value,
+        locale_code: {
+          code: cell1Value,
+          locale: cell1Value,
         },
-        {
-            key:'cell-1', id: 'toggle-1', title: "111"
-        }
-      ],
+      },
     };
+    console.log("create call");
+    dispatch({ type: tableActions.ADD_SINGLE_ROW_DATA, createdCellData });
+  };
 
-    dispatch({
-      type: tableActions.ADD_ROW,
-      payload: [...tableData.tabledata, newData],
-    });
+  const ResetFields = () => {
+    UpdateSelectedKey([]);
+    UpdateCell1Value("");
+    UpdateCell2Value("");
   };
 
   return (
     <>
-      <div className="btn-space">
-        <button type="button" onClick={AddElement}>
-          Add
-        </button>
-        <button type="button" onClick={RemoveSelected}>
-          Remove
-        </button>
+      <ModalComp
+        cell1Value={cell1Value}
+        cell2Value={cell2Value}
+        UpdateCell1Value={UpdateCell1Value}
+        UpdateCell2Value={UpdateCell2Value}
+        passedValue = {passedValue}
+        clickedFunction={passedValue === "Add" ? AddElement : UpdateSelected}
+      />
+      <div className="float-left">
+        <Spacer
+          className="spacerdemodefault"
+          paddingTop="large"
+          paddingBottom="large"
+          paddingLeft="small"
+          paddingRight="small"
+          marginTop="medium"
+          marginBottom="medium"
+          isInlineBlock
+        >
+          <Button
+            isDisabled={
+              selectedKey.length > 0 && selectedStoredKey !== undefined
+                ? false
+                : true
+            }
+            text="Reset"
+            onClick={ResetFields}
+          />
+        </Spacer>
+      </div>
+      <div className="float-right">
+        <Spacer
+          className="spacerdemoprimary"
+          padding="large small"
+          isInlineBlock
+        >
+          <Button
+            text="Create"
+            data-toggle="modal"
+            data-target="#exampleModal"
+            onClick={PassValueAdd}
+          />
+        </Spacer>
+        <Spacer
+          className="spacerdemodefault"
+          paddingTop="large"
+          paddingBottom="large"
+          paddingLeft="small"
+          paddingRight="small"
+          marginTop="medium"
+          marginBottom="medium"
+          isInlineBlock
+        >
+          <Button
+            isDisabled={
+              selectedKey.length > 0 && selectedStoredKey !== undefined
+                ? false
+                : true
+            }
+            text="Update"
+            data-toggle="modal"
+            data-target="#exampleModal"
+            onClick={PassValueUpdate}
+          />
+        </Spacer>
+        <Spacer
+          className="spacerdemodefault"
+          paddingTop="large"
+          paddingBottom="large"
+          paddingLeft="small"
+          paddingRight="small"
+          marginTop="medium"
+          marginBottom="medium"
+          isInlineBlock
+        >
+          <Button
+            isDisabled={
+              selectedKey.length > 0 && selectedStoredKey !== undefined
+                ? false
+                : true
+            }
+            text="Remove"
+            onClick={RemoveSelected}
+          />
+        </Spacer>
       </div>
     </>
   );

@@ -1,22 +1,30 @@
-import React, { useState } from "react";
+import React from "react";
 import Grid from "terra-grid";
 import Spacer from "terra-spacer";
-
+import Button from "terra-button";
+import { useHistory } from "react-router-dom";
+import IconPrevious from "terra-icon/lib/icon/IconPrevious";
 import Card from "terra-card/lib/Card";
-import "./SelectedRowDetails.scss"
+import "./SelectedRowDetails.scss";
 
 function SelectedRowDetails(props) {
   console.log("metadata", props);
-
+  const history = useHistory();
   return (
-    <div className="parent-style" >
+    <div className="parent-style">
       <Card variant="raised">
         <Spacer
-          className="spacerdemoprimary"
+          className="spacerdemoprimary display-flex"
           padding="large small"
-          marginLeft="small"
+          // marginLeft="small"
           isInlineBlock
         >
+          <Button
+            text="back"
+            variant="utility"
+            icon={<IconPrevious />}
+            onClick={() => history.goBack()}
+          />
           <h3>Selected knowledge_basis Details</h3>
         </Spacer>
         <Card.Body>

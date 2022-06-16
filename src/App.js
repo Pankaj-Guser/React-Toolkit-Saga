@@ -2,8 +2,8 @@ import React from "react";
 import "./styles.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Provider } from "react-redux";
-import TableContainer from "./containers/dashboardContainer";
-import SelectedRowDetails from "./components/table/SelectedRowDetail";
+import HomeContainer from "./containers/HomeContainer";
+import SelectedRowDetails from "./components/SelectedRowDetail";
 import store from "./store";
 
 const App = () => {
@@ -11,7 +11,7 @@ const App = () => {
     <Provider store={store}>
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" component={TableContainer} />
+          <Route exact path="/" component={HomeContainer} />
           <Route path="/selectedRowDetails" component={SelectedRowDetails} />
         </Switch>
       </BrowserRouter>
