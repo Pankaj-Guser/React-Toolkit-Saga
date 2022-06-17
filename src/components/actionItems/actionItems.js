@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import tableActions from "../../actions/tableActions";
-// import InputFieldComp from "../inputField/inputField";
 import Button from "terra-button";
 import Spacer from "terra-spacer";
 import "../table//table.scss";
@@ -25,10 +24,7 @@ function ActionItemsComp(props) {
   };
 
   const PassValueAdd = () => {
-    console.log(">>>>>>>>>>>", cell1Value, cell2Value)
     setPassedValue("Add");
-    // UpdateCell1Value("");
-    // UpdateCell2Value("");
   };
   const UpdateSelected = () => {
     const updatedCellData = {
@@ -42,10 +38,16 @@ function ActionItemsComp(props) {
       selectedKey,
       updatedCellData,
     });
+    UpdateSelectedKey([]);
+    UpdateCell1Value("");
+    UpdateCell2Value("");
   };
 
   const RemoveSelected = () => {
     dispatch({ type: tableActions.DELETE_SINGLE_ROW_DATA, selectedKey });
+    UpdateSelectedKey([]);
+    UpdateCell1Value("");
+    UpdateCell2Value("");
   };
 
   const AddElement = () => {
@@ -59,11 +61,7 @@ function ActionItemsComp(props) {
         },
       },
     };
-    console.log("create call");
     dispatch({ type: tableActions.ADD_SINGLE_ROW_DATA, createdCellData });
-  };
-
-  const ResetFields = () => {
     UpdateSelectedKey([]);
     UpdateCell1Value("");
     UpdateCell2Value("");
@@ -79,28 +77,6 @@ function ActionItemsComp(props) {
         passedValue = {passedValue}
         clickedFunction={passedValue === "Add" ? AddElement : UpdateSelected}
       />
-      <div className="float-left">
-        <Spacer
-          className="spacerdemodefault"
-          paddingTop="large"
-          paddingBottom="large"
-          paddingLeft="small"
-          paddingRight="small"
-          marginTop="medium"
-          marginBottom="medium"
-          isInlineBlock
-        >
-          <Button
-            isDisabled={
-              selectedKey.length > 0 && selectedStoredKey !== undefined
-                ? false
-                : true
-            }
-            text="Reset"
-            onClick={ResetFields}
-          />
-        </Spacer>
-      </div>
       <div className="float-right">
         <Spacer
           className="spacerdemoprimary"
@@ -109,6 +85,11 @@ function ActionItemsComp(props) {
         >
           <Button
             text="Create"
+            isDisabled={
+              selectedKey.length > 0 && selectedStoredKey !== undefined
+                ? true
+                : false
+            }
             data-toggle="modal"
             data-target="#exampleModal"
             onClick={PassValueAdd}

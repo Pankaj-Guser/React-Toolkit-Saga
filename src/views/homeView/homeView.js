@@ -8,7 +8,7 @@ import {
 import Spacer from "terra-spacer";
 import Grid from "terra-grid";
 import Card from "terra-card/lib/Card";
-import { isMobileView, isEnormous } from "../../utils/breakpoints";
+import { isMobileView } from "../../utils/breakpoints";
 import "./homeView.scss";
 import PolicyTextComp from "../../components/policyText/policyText";
 const TableComp = lazy(() => import("../../components/table/tableComp"));

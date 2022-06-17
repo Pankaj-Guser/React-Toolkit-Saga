@@ -7,7 +7,6 @@ function PolicyTextComp() {
   useEffect( ()=> {
     dispatch({type: "GET_POLICY_TEXT"})
   }, [])
-console.log("policyText", policyText)
     return ( 
         <label>{policyText}</label>
      );

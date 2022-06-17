@@ -9,7 +9,6 @@ function InputFieldComp(props) {
   const [field1value, setField1value] = useState("")
   const [field2value, setField2value] = useState("")
 
-
   const handleFieldOne = (event) => {UpdateCell1Value(event.target.value); setField1value(event.target.value)}
 
   const handleFieldTwo = (event) => {UpdateCell2Value(event.target.value); setField2value(event.target.value)}
@@ -20,7 +19,7 @@ function InputFieldComp(props) {
         <Card.Body>
           <input
             type="text"
-            value={ passedValue !== "Add"  ? cell1Value : field1value}
+            value={ cell1Value !== ""  ? cell1Value : ""}
             placeholder="facility_cd"
             onChange={handleFieldOne}
           />
@@ -29,7 +28,7 @@ function InputFieldComp(props) {
         <Card.Body>
           <input
             type="text"
-            value={passedValue !== "Add" ? cell2Value :field2value}
+            value={cell2Value !== "" ? cell2Value :""}
             placeholder="primary_criteria_cd"
             onChange={handleFieldTwo}
           />

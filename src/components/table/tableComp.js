@@ -53,10 +53,9 @@ export default function TableComp(props) {
         type: tableActions.SET_SELECTED_CELL_KEY,
         payload: selectedCellData,
       });
-      history.push("/selectedRowDetails", selectedCellData);
+      history.push("/selectedKnowledgebasisDetail", selectedCellData);
     } else {
       UpdateSelectedKey([]);
-      // dispatch({type: tableActions.SET_SELECTED_CELL_KEY, payload: []})
     }
   };
   const sortData = (data, sortColumn) => {

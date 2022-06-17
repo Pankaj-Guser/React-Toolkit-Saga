@@ -8,7 +8,6 @@ import Card from "terra-card/lib/Card";
 import "./SelectedRowDetails.scss";
 
 function SelectedRowDetails(props) {
-  console.log("metadata", props);
   const history = useHistory();
   return (
     <div className="parent-style">
@@ -16,7 +15,6 @@ function SelectedRowDetails(props) {
         <Spacer
           className="spacerdemoprimary display-flex"
           padding="large small"
-          // marginLeft="small"
           isInlineBlock
         >
           <Button
