@@ -126,9 +126,7 @@ export default function TableComp(props) {
         <div>
           <Spacer
             className="spacerdemodefault mb-0"
-            paddingTop="large"
             paddingBottom="large"
-            marginTop="medium"
             marginBottom="medium"
           >
             knowledge_basis Details

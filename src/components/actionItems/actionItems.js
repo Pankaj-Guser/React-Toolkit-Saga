@@ -8,6 +8,7 @@ import ModalComp from "../Modal";
 
 function ActionItemsComp(props) {
   const [passedValue, setPassedValue] = useState("");
+  const [openModal, setOpenModal] = useState(false);
   const dispatch = useDispatch();
   const {
     selectedKey,
@@ -20,10 +21,12 @@ function ActionItemsComp(props) {
   } = props;
 
   const PassValueUpdate = () => {
+    setOpenModal(true)
     setPassedValue("update");
   };
 
   const PassValueAdd = () => {
+    setOpenModal(true);
     setPassedValue("Add");
   };
   const UpdateSelected = () => {
@@ -75,6 +78,9 @@ function ActionItemsComp(props) {
         UpdateCell1Value={UpdateCell1Value}
         UpdateCell2Value={UpdateCell2Value}
         passedValue = {passedValue}
+        openModal={openModal}
+        UpdateSelectedKey={UpdateSelectedKey}
+        setOpenModal = {setOpenModal}
         clickedFunction={passedValue === "Add" ? AddElement : UpdateSelected}
       />
       <div className="float-right">
@@ -90,8 +96,6 @@ function ActionItemsComp(props) {
                 ? true
                 : false
             }
-            data-toggle="modal"
-            data-target="#exampleModal"
             onClick={PassValueAdd}
           />
         </Spacer>
@@ -112,8 +116,6 @@ function ActionItemsComp(props) {
                 : true
             }
             text="Update"
-            data-toggle="modal"
-            data-target="#exampleModal"
             onClick={PassValueUpdate}
           />
         </Spacer>

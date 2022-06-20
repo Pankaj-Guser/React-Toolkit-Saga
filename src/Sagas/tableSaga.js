@@ -4,6 +4,41 @@ import tableAPI from "../utils/tableAPI";
 import axios from "axios";
 import TableData from "../helpers/tableDataConverter";
 
+export function* fetchDataSaga() {
+  try {
+    let result = yield call(() => tableAPI.fetchData());
+    result = TableData(result);
+    yield put({ type: tableActions.GET_TABLE_DATA_SUCCESS, payload: result });
+  } catch (e) {
+    yield put({
+      type: tableActions.GET_TABLE_DATA_ERROR,
+      payload: "API server is down",
+    });
+  }
+}
+export function* deleteDataSaga(selectedRow) {
+  try {
+    yield call(() => tableAPI.deleteSingleRowData(selectedRow.selectedKey));
+    let result = yield call(() => tableAPI.fetchData());
+    result = TableData(result);
+    yield put({ type: tableActions.GET_TABLE_DATA_SUCCESS, payload: result });
+  } catch (e) {
+    yield put({
+      type: tableActions.DELETE_SINGLE_ROW_DATA_ERROR,
+      payload: "API server is down",
+    });
+  }
+}
+
+export function* getPolicyText() {
+  try{
+      let result = yield call(() => tableAPI.getPolicyText());
+      yield put({type: tableActions.GET_POLICY_TEXT_SUCCESS, payload: result.data[0].locale_texts_data[1].content})
+  } catch(e) {
+    yield put({type: tableActions.GET_POLICY_TEXT_ERROR, payload: "API server is down"})
+  }
+}
+
 const callAPI = async ({ url, method, data }) => {
   const response= await axios({
     url,
@@ -50,40 +85,6 @@ export function* updateDataSaga(bodyData) {
       type: tableActions.UPDATE_SINGLE_ROW_DATA_ERROR,
       payload: "API server is down",
     });
-  }
-}
-export function* fetchDataSaga() {
-  try {
-    let result = yield call(() => tableAPI.fetchData());
-    result = TableData(result);
-    yield put({ type: tableActions.GET_TABLE_DATA_SUCCESS, payload: result });
-  } catch (e) {
-    yield put({
-      type: tableActions.GET_TABLE_DATA_ERROR,
-      payload: "API server is down",
-    });
-  }
-}
-export function* deleteDataSaga(selectedRow) {
-  try {
-    yield call(() => tableAPI.deleteSingleRowData(selectedRow.selectedKey));
-    let result = yield call(() => tableAPI.fetchData());
-    result = TableData(result);
-    yield put({ type: tableActions.GET_TABLE_DATA_SUCCESS, payload: result });
-  } catch (e) {
-    yield put({
-      type: tableActions.DELETE_SINGLE_ROW_DATA_ERROR,
-      payload: "API server is down",
-    });
-  }
-}
-
-export function* getPolicyText() {
-  try{
-      let result = yield call(() => tableAPI.getPolicyText());
-      yield put({type: tableActions.GET_POLICY_TEXT_SUCCESS, payload: result.data[0].locale_texts_data[1].content})
-  } catch(e) {
-    yield put({type: tableActions.GET_POLICY_TEXT_ERROR, payload: "API server is down"})
   }
 }
 
