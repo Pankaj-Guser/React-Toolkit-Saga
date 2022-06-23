@@ -35,7 +35,7 @@ function SelectedRowDetails(props) {
                 huge={4}
                 enormous={4}
               >
-                <label>selected key: {props.location.state[0].key}</label>
+                <label>selected key: {props.location.state.key}</label>
               </Grid.Column>
               <Grid.Column
                 tiny={12}
@@ -45,7 +45,7 @@ function SelectedRowDetails(props) {
                 enormous={4}
               >
                 <label>
-                  selected facility_cd: {props.location.state[0].cells[0].title}
+                  selected facility_cd: {props.location.state.cells[0].title}
                 </label>
               </Grid.Column>
               <Grid.Column
@@ -57,7 +57,7 @@ function SelectedRowDetails(props) {
               >
                 <label>
                   selected primary_criteria_cd:{" "}
-                  {props.location.state[0].cells[1].title}
+                  {props.location.state.cells[1].title}
                 </label>
               </Grid.Column>
             </Grid.Row>

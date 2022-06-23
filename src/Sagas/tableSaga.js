@@ -3,11 +3,13 @@ import { tableActions } from "../actions/tableActions";
 import tableAPI from "../utils/tableAPI";
 import axios from "axios";
 import TableData from "../helpers/tableDataConverter";
+import mockData from "../mockData/tableMockData";
 
 export function* fetchDataSaga() {
   try {
     let result = yield call(() => tableAPI.fetchData());
     result = TableData(result);
+    // result = mockData.tableBodyMockData;
     yield put({ type: tableActions.GET_TABLE_DATA_SUCCESS, payload: result });
   } catch (e) {
     yield put({

@@ -11,19 +11,18 @@ function InputFieldComp(props) {
     cell1Value,
     UpdateCell1Value,
     UpdateCell2Value,
-    passedValue,
   } = props;
-  const [field1value, setField1value] = useState("");
-  const [field2value, setField2value] = useState("");
+  // const [field1value, setField1value] = useState("");
+  // const [field2value, setField2value] = useState("");
 
   const handleFieldOne = (event) => {
     UpdateCell1Value(event.target.value);
-    setField1value(event.target.value);
+    // setField1value(event.target.value);
   };
 
   const handleFieldTwo = (event) => {
     UpdateCell2Value(event.target.value);
-    setField2value(event.target.value);
+    // setField2value(event.target.value);
   };
 
   return (
@@ -35,13 +34,13 @@ function InputFieldComp(props) {
             marginRight="medium"
             isInlineBlock
           >
-            <label>Facility_cd</label>
+            <label>Facility</label>
           </Spacer>
           <input
             type="text"
             className="float-right"
             value={cell1Value !== "" ? cell1Value : ""}
-            placeholder="facility_cd"
+            placeholder="facility"
             onChange={handleFieldOne}
           />
         </Card.Body>
@@ -52,14 +51,14 @@ function InputFieldComp(props) {
             marginRight="medium"
             isInlineBlock
           >
-            <label>Primary_criteria_cd</label>
+            <label>Primary criteria</label>
           </Spacer>
 
           <input
             className="float-right"
             type="text"
             value={cell2Value !== "" ? cell2Value : ""}
-            placeholder="primary_criteria_cd"
+            placeholder="primary criteria"
             onChange={handleFieldTwo}
           />
         </Card.Body>

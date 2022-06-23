@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Button from "terra-button";
 import { injectIntl } from "react-intl";
-import InputFieldComp from "./inputField/inputField";
+import InputFieldComp from "../inputField/inputField";
 import AbstractModal from "terra-abstract-modal";
 import Card from "terra-card/lib/Card";
 import classNames from "classnames/bind";
@@ -12,28 +12,26 @@ import generalStyles from "./AbstractModalDocCommon.module.scss";
 const cx = classNames.bind(generalStyles);
 function ModalComp(props) {
   const {
-    cell1Value,
-    cell2Value,
-    UpdateCell1Value,
-    UpdateCell2Value,
     clickedFunction,
-    passedValue,
-    UpdateSelectedKey,
     openModal,
-    setOpenModal
+    setOpenModal,
+    selectedKey
   } = props;
-
-  const handleSave = () => {setOpenModal(false); clickedFunction()}
-  const [isOpen, setIsOpen] = useState(openModal);
-  const handleCloseModal = () => {
-    setOpenModal(false); 
-    UpdateSelectedKey([])
-    UpdateCell1Value("");
-    UpdateCell2Value("");
+  const [cell1Value, setCell1value] = useState("");
+  const [cell2Value, setCell2value] = useState("");
+  const UpdateCell1Value = (value) => {
+    setCell1value(value);
   };
-
-  const paraOne = "abc";
-  console.log(">>>>>>>>>, ", props, isOpen)
+  const UpdateCell2Value = (value) => {
+    setCell2value(value);
+  };
+  const handleSave = () => {
+    setOpenModal(false);
+    clickedFunction(cell1Value, cell2Value, selectedKey);
+  };
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
 
   return (
     <>
@@ -52,22 +50,8 @@ function ModalComp(props) {
                 cell2Value={cell2Value}
                 UpdateCell1Value={UpdateCell1Value}
                 UpdateCell2Value={UpdateCell2Value}
-                passedValue={passedValue}
               />
             </div>
-
-            <Spacer
-              className="spacerdemodefault float-right"
-              paddingTop="large"
-              paddingBottom="large"
-              paddingLeft="small"
-              paddingRight="small"
-              marginTop="medium"
-              marginBottom="medium"
-              isInlineBlock
-            >
-              <Button text="Save" onClick={handleSave} />
-            </Spacer>
             <Spacer
               className="spacerdemodefault float-right"
               paddingTop="large"
@@ -79,6 +63,18 @@ function ModalComp(props) {
               isInlineBlock
             >
               <Button text="Close" onClick={handleCloseModal} />
+            </Spacer>
+            <Spacer
+              className="spacerdemodefault float-right"
+              paddingTop="large"
+              paddingBottom="large"
+              paddingLeft="small"
+              paddingRight="small"
+              marginTop="medium"
+              marginBottom="medium"
+              isInlineBlock
+            >
+              <Button text="Save" onClick={handleSave} />
             </Spacer>
           </Card.Body>
         </Card>

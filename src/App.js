@@ -4,7 +4,7 @@ import { IntlProvider } from "react-intl"
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import HomeContainer from "./containers/HomeContainer";
-import SelectedRowDetails from "./components/SelectedRowDetail";
+import SelectedRowDetails from "./components/selectedrowdetail/SelectedRowDetail";
 import store from "./store";
 
 const App = () => {
