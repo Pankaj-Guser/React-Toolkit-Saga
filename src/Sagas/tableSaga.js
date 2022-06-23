@@ -1,5 +1,5 @@
 import { call, fork, put, takeEvery } from "redux-saga/effects";
-import { tableActions } from "../actions/tableActions";
+import { ActionsConstant } from "../actions/ActionsConstant";
 import tableAPI from "../utils/tableAPI";
 import axios from "axios";
 import TableData from "../helpers/tableDataConverter";
@@ -9,11 +9,10 @@ export function* fetchDataSaga() {
   try {
     let result = yield call(() => tableAPI.fetchData());
     result = TableData(result);
-    // result = mockData.tableBodyMockData;
-    yield put({ type: tableActions.GET_TABLE_DATA_SUCCESS, payload: result });
+    yield put({ type: ActionsConstant.GET_TABLE_DATA_SUCCESS, payload: result });
   } catch (e) {
     yield put({
-      type: tableActions.GET_TABLE_DATA_ERROR,
+      type: ActionsConstant.GET_TABLE_DATA_ERROR,
       payload: "API server is down",
     });
   }
@@ -23,10 +22,10 @@ export function* deleteDataSaga(selectedRow) {
     yield call(() => tableAPI.deleteSingleRowData(selectedRow.selectedKey));
     let result = yield call(() => tableAPI.fetchData());
     result = TableData(result);
-    yield put({ type: tableActions.GET_TABLE_DATA_SUCCESS, payload: result });
+    yield put({ type: ActionsConstant.GET_TABLE_DATA_SUCCESS, payload: result });
   } catch (e) {
     yield put({
-      type: tableActions.DELETE_SINGLE_ROW_DATA_ERROR,
+      type: ActionsConstant.DELETE_SINGLE_ROW_DATA_ERROR,
       payload: "API server is down",
     });
   }
@@ -35,9 +34,9 @@ export function* deleteDataSaga(selectedRow) {
 export function* getPolicyText() {
   try{
       let result = yield call(() => tableAPI.getPolicyText());
-      yield put({type: tableActions.GET_POLICY_TEXT_SUCCESS, payload: result.data[0].locale_texts_data[1].content})
+      yield put({type: ActionsConstant.GET_POLICY_TEXT_SUCCESS, payload: result.data[0].locale_texts_data[1].content})
   } catch(e) {
-    yield put({type: tableActions.GET_POLICY_TEXT_ERROR, payload: "API server is down"})
+    yield put({type: ActionsConstant.GET_POLICY_TEXT_ERROR, payload: "API server is down"})
   }
 }
 
@@ -58,12 +57,12 @@ export function* addDataSaga(addRowData) {
     if(response.success === true) {
       let result = yield call(() => tableAPI.fetchData());
       result = TableData(result);
-      yield put({ type: tableActions.GET_TABLE_DATA_SUCCESS, payload: result });
+      yield put({ type: ActionsConstant.GET_TABLE_DATA_SUCCESS, payload: result });
     }
   } catch (e) {
 
     yield put({
-      type: tableActions.ADD_SINGLE_ROW_DATA_ERROR,
+      type: ActionsConstant.ADD_SINGLE_ROW_DATA_ERROR,
       payload: "API server is down",
     });
   }
@@ -78,38 +77,38 @@ export function* updateDataSaga(bodyData) {
       // yield call(() => tableAPI.updateSingleRowData, bodyData.selectedKey, bodyData.updatedCellData);
       let result = yield call(() => tableAPI.fetchData());
       result = TableData(result);
-      yield put({ type: tableActions.GET_TABLE_DATA_SUCCESS, payload: result });
+      yield put({ type: ActionsConstant.GET_TABLE_DATA_SUCCESS, payload: result });
     }
   } catch (e) {
 
     yield put({
       
-      type: tableActions.UPDATE_SINGLE_ROW_DATA_ERROR,
+      type: ActionsConstant.UPDATE_SINGLE_ROW_DATA_ERROR,
       payload: "API server is down",
     });
   }
 }
 
 export function* fetchPolicyText() {
-  yield takeEvery(tableActions.GET_POLICY_TEXT, getPolicyText);
+  yield takeEvery(ActionsConstant.GET_POLICY_TEXT, getPolicyText);
 }
 
 export function* fetchTableDataAll() {
-  yield takeEvery(tableActions.FETCH_DATA_SAGA, fetchDataSaga);
+  yield takeEvery(ActionsConstant.FETCH_DATA_SAGA, fetchDataSaga);
 }
 
 export function* deleteTableDataSingle() {
-  yield takeEvery(tableActions.DELETE_SINGLE_ROW_DATA, deleteDataSaga);
+  yield takeEvery(ActionsConstant.DELETE_SINGLE_ROW_DATA, deleteDataSaga);
 }
 
 export function* updateTableDataSingle() {
 
-  yield takeEvery(tableActions.UPDATE_SINGLE_ROW_DATA, updateDataSaga)
+  yield takeEvery(ActionsConstant.UPDATE_SINGLE_ROW_DATA, updateDataSaga)
 }
 
 export function* addTableDataSingle() {
 
-  yield takeEvery(tableActions.ADD_SINGLE_ROW_DATA, addDataSaga)
+  yield takeEvery(ActionsConstant.ADD_SINGLE_ROW_DATA, addDataSaga)
 }
 
 export default function* root() {

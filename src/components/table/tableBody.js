@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import Spacer from "terra-spacer";
 import { useHistory } from "react-router-dom";
 import { Cell, Row } from "terra-html-table";
-import tableActions from "../../actions/tableActions";
+import ActionsConstant from "../../actions/ActionsConstant";
 import ModalComp from "../modal/Modal";
 import "../table//table.scss";
 
@@ -25,14 +25,14 @@ const TableBodyComp = (props) => {
       },
     };
     dispatch({
-      type: tableActions.UPDATE_SINGLE_ROW_DATA,
+      type: ActionsConstant.UPDATE_SINGLE_ROW_DATA,
       selectedKey,
       updatedCellData,
     });
   };
 
   const RemoveSelected = (selectedKey) => {
-    dispatch({ type: tableActions.DELETE_SINGLE_ROW_DATA, selectedKey });
+    dispatch({ type: ActionsConstant.DELETE_SINGLE_ROW_DATA, selectedKey });
   };
   
   const NavigateToDetailsPage = (selectedCellData) => {

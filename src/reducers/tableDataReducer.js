@@ -1,4 +1,4 @@
-import { tableActions } from "../actions/tableActions";
+import { ActionsConstant } from "../actions/ActionsConstant";
 
 const DEFAULT_ALLERGIES_STATE = {
   tabledata: [],
@@ -7,42 +7,42 @@ const DEFAULT_ALLERGIES_STATE = {
 
 export const TableData = (state = DEFAULT_ALLERGIES_STATE, action) => {
   switch (action.type) {
-    case tableActions.GET_TABLE_DATA_SUCCESS:
+    case ActionsConstant.GET_TABLE_DATA_SUCCESS:
       return {
         ...state,
         tabledata: action.payload,
       };
-    case tableActions.ADD_ROW:
+    case ActionsConstant.ADD_ROW:
       return {
         ...state,
         tabledata: action.payload,
       };
-    case tableActions.REMOVE_ROW:
+    case ActionsConstant.REMOVE_ROW:
       return {
         ...state,
         tabledata: action.payload,
       };
-    case tableActions.GET_TABLE_DATA_ERROR:
+    case ActionsConstant.GET_TABLE_DATA_ERROR:
       return {
         ...state,
         error: action.payload,
       };
-    case tableActions.DELETE_SINGLE_ROW_DATA_ERROR:
+    case ActionsConstant.DELETE_SINGLE_ROW_DATA_ERROR:
       return {
         ...state,
         error: action.payload,
       };
-    case tableActions.UPDATE_SINGLE_ROW_DATA_ERROR:
+    case ActionsConstant.UPDATE_SINGLE_ROW_DATA_ERROR:
       return {
         ...state,
         error: action.payload,
       };
-    case tableActions.ADD_SINGLE_ROW_DATA_ERROR:
+    case ActionsConstant.ADD_SINGLE_ROW_DATA_ERROR:
     return {
       ...state,
       error: action.payload,
     };
-    case tableActions.SET_SELECTED_CELL_KEY:
+    case ActionsConstant.SET_SELECTED_CELL_KEY:
     return {
       ...state,
       selectedCellKey: action.payload[0].key,
@@ -50,12 +50,12 @@ export const TableData = (state = DEFAULT_ALLERGIES_STATE, action) => {
       cell2InputData: action.payload[0].cells[1].title 
 
     };
-    case tableActions.GET_POLICY_TEXT_SUCCESS:
+    case ActionsConstant.GET_POLICY_TEXT_SUCCESS:
       return {
         ...state,
         policyText: action.payload,
       };
-    case tableActions.GET_POLICY_TEXT_ERROR:
+    case ActionsConstant.GET_POLICY_TEXT_ERROR:
       return {
         ...state,
         error: action.payload,

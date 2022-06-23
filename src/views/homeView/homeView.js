@@ -1,6 +1,6 @@
 import React, { useEffect, Suspense, lazy } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { tableActions } from "../../actions/tableActions";
+import { ActionsConstant } from "../../actions/ActionsConstant";
 import {
   ActiveBreakpointProvider,
   ActiveBreakpointContext,
@@ -18,8 +18,8 @@ export default function HomeViewComp() {
   const tableData = useSelector((state) => state.TableData);
 
   useEffect(() => {
-    dispatch({ type: tableActions.FETCH_DATA_SAGA });
-  }, [dispatch]);
+    dispatch({ type: ActionsConstant.FETCH_DATA_SAGA });
+  }, []);
 
   return (
     <div className="parent-style">

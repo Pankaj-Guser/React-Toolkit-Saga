@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import EmptyComp from "../emptycomponent/emptyComp";
 import Spacer from "terra-spacer";
 import Table, { Body } from "terra-html-table";
-import tableActions from "../../actions/tableActions";
+import ActionsConstant from "../../actions/ActionsConstant";
 import Button from "terra-button";
 import TableBodyComp from "./tableBody";
 import ModalComp from "../modal/Modal";
@@ -34,7 +34,7 @@ export default function TableComp(props) {
         },
       },
     };
-    dispatch({ type: tableActions.ADD_SINGLE_ROW_DATA, createdCellData });
+    dispatch({ type: ActionsConstant.ADD_SINGLE_ROW_DATA, createdCellData });
   };
 
   return (
@@ -68,7 +68,7 @@ export default function TableComp(props) {
             <HeaderComp headers={tableHeaderData} />
             <Body>
               {tableData.tabledata &&
-                tableData.tabledata.map((row) => <TableBodyComp row={row} />)}
+                tableData.tabledata.map((row, index) => <TableBodyComp key={index} row={row} />)}
             </Body>
           </Table>
         </div>

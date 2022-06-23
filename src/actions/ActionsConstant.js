@@ -1,4 +1,4 @@
-export const tableActions = {
+export const ActionsConstant = {
   FETCH_DATA_SAGA: "FETCH_DATA_SAGA",
   GET_TABLE_DATA_SUCCESS: "GET_TABLE_DATA_SUCCESS",
   GET_TABLE_DATA_ERROR: "GET_TABLE_DATA_ERROR",
@@ -19,4 +19,4 @@ export const tableActions = {
   GET_POLICY_TEXT_ERROR: "GET_POLICY_TEXT_ERROR" 
 };
 
-export default tableActions;
+export default ActionsConstant;
