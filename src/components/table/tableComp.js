@@ -59,7 +59,7 @@ export default function TableComp(props) {
           </Spacer>
           <Spacer
             className="spacerdemoprimary float-right"
-            padding="large small"
+            padding="large tiny"
             isInlineBlock
           >
             <Button text="Create" onClick={PassValueAdd} />
