@@ -16,7 +16,7 @@ if (locale === "en-IN") {
 const rootElement = document.getElementById("root");
 ReactDOM.render(
   <React.StrictMode>
-    <IntlProvider locale={locale} messages={Spanish}>
+    <IntlProvider locale={locale} messages={lang}>
       <App />
     </IntlProvider>
   </React.StrictMode>,

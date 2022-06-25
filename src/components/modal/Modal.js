@@ -6,7 +6,6 @@ import classNames from "classnames/bind";
 import Spacer from "terra-spacer";
 import { FormattedMessage } from "react-intl";
 import ActionHeader from "terra-action-header";
-import ActionFooter from "terra-action-footer";
 import DialogModal from "terra-dialog-modal";
 import generalStyles from "./AbstractModalDocCommon.module.scss";
 
