@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import Button from "terra-button";
 import { injectIntl } from "react-intl";
 import InputFieldComp from "../inputField/inputField";
-import AbstractModal from "terra-abstract-modal";
-import Card from "terra-card/lib/Card";
 import classNames from "classnames/bind";
 import Spacer from "terra-spacer";
-import styles from "./ExampleAbstractSize.module.scss";
+import {FormattedMessage} from 'react-intl';
+import ActionHeader from 'terra-action-header';
+import ActionFooter from 'terra-action-footer';
+import DialogModal from 'terra-dialog-modal';
 import generalStyles from "./AbstractModalDocCommon.module.scss";
 
 const cx = classNames.bind(generalStyles);
@@ -33,26 +34,9 @@ function ModalComp(props) {
     setOpenModal(false);
   };
 
-  return (
-    <>
-      <AbstractModal
-        ariaLabel="Default Modal"
-        isOpen={openModal}
-        onRequestClose={handleCloseModal}
-        classNameModal={styles["fixed-size"]}
-      >
-        <Card variant="raised">
-          <Card.Body>
-            <label>Input Fields</label>
-            <div className={cx("content-wrapper")}>
-              <InputFieldComp
-                cell1Value={cell1Value}
-                cell2Value={cell2Value}
-                UpdateCell1Value={UpdateCell1Value}
-                UpdateCell2Value={UpdateCell2Value}
-              />
-            </div>
-            <Spacer
+
+  const FooterButton = () => (<>
+    <Spacer
               className="spacerdemodefault float-right"
               paddingTop="large"
               paddingBottom="large"
@@ -76,9 +60,25 @@ function ModalComp(props) {
             >
               <Button text="Save" onClick={handleSave} />
             </Spacer>
-          </Card.Body>
-        </Card>
-      </AbstractModal>
+  </>)
+
+  return (
+    <>
+      <DialogModal
+          ariaLabel="Dialog Modal With Long Text"
+          isOpen={openModal}
+          onRequestClose={handleCloseModal}
+          header={<ActionHeader title="Input Field" onClose={handleCloseModal} />}
+          footer={<FooterButton />}
+          width="640"
+        >
+          <InputFieldComp
+                cell1Value={cell1Value}
+                cell2Value={cell2Value}
+                UpdateCell1Value={UpdateCell1Value}
+                UpdateCell2Value={UpdateCell2Value}
+              />
+        </DialogModal>
     </>
   );
 }

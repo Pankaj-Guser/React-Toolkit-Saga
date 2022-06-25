@@ -9,6 +9,7 @@ import ActionsConstant from "../../actions/ActionsConstant";
 import Button from "terra-button";
 import TableBodyComp from "./tableBody";
 import ModalComp from "../modal/Modal";
+import {FormattedMessage} from "react-intl"
 import "./table.scss";
 
 export default function TableComp(props) {
@@ -55,7 +56,8 @@ export default function TableComp(props) {
             marginTop="medium"
             isInlineBlock
           >
-            knowledge basis Details
+            <FormattedMessage id="app.table.title" defaultMessage="table title" />
+            {/* knowledge basis Details */}
           </Spacer>
           <Spacer
             className="spacerdemoprimary float-right"
