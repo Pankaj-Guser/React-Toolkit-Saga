@@ -2,5 +2,17 @@
     "app.header": "Edit <code>{fileName}</code> js and save to reload.",
     "app.content": "Learn React",
     "app.channel.plug": "Video brought to you by {channelName}",
-    "app.table.title": "knowledge basis Details"
+    "app.table.title": "knowledge basis Details",
+    "app.table.header1": "Facility",
+    "app.table.header2": "Primary Criteria",
+    "app.table.header3": "Actions",
+    "app.modal.title": "Input Field",
+    "app.modal.inputField1": "Facility",
+    "app.modal.inputField2": "Primary criteria",
+    "app.modal.closebutton": "Close",
+    "app.modal.savebutton": "Save",
+    "app.create.button": "Create",
+    "app.Edit.button": "Edit",
+    "app.Remove.button": "Remove",
+    "app.Detail.button": "Detail"
 }

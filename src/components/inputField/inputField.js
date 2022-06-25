@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Card from "terra-card/lib/Card";
 import classNames from "classnames/bind";
 import Spacer from "terra-spacer";
+import {FormattedMessage} from 'react-intl';
 import styles from "./CardPaddingHR.scss";
 
 const cx = classNames.bind(styles);
@@ -34,13 +35,12 @@ function InputFieldComp(props) {
             marginRight="medium"
             isInlineBlock
           >
-            <label>Facility</label>
+            <label><FormattedMessage id="app.modal.inputField1" defaultMessage="input field1" /></label>
           </Spacer>
           <input
             type="text"
             className="float-right"
             value={cell1Value !== "" ? cell1Value : ""}
-            placeholder="facility"
             onChange={handleFieldOne}
           />
         </Card.Body>
@@ -51,14 +51,13 @@ function InputFieldComp(props) {
             marginRight="medium"
             isInlineBlock
           >
-            <label>Primary criteria</label>
+            <label><FormattedMessage id="app.modal.inputField2" defaultMessage="input field2" /></label>
           </Spacer>
 
           <input
             className="float-right"
             type="text"
             value={cell2Value !== "" ? cell2Value : ""}
-            placeholder="primary criteria"
             onChange={handleFieldTwo}
           />
         </Card.Body>

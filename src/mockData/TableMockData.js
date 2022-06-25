@@ -1,7 +1,10 @@
+import React from 'react';
+import {FormattedMessage} from "react-intl"
+
 const mockData = {
   tableHeaderMockData: [
-    { key: "cell-0", id: "toggle-0", children: "Facility" },
-    { key: "cell-1", id: "toggle-1", children: "Primary Criteria" },
+    { key: "cell-0", id: "toggle-0", children: <FormattedMessage id="app.table.header1" defaultMessage="header1" /> },
+    { key: "cell-1", id: "toggle-1", children: <FormattedMessage id="app.table.header2" defaultMessage="header2" /> },
     // { key: "cell-2", id: "toggle-2", children: "facility_cd" },
     // { key: "cell-3", id: "toggle-3", children: "primary_criteria_cd" },
   ],

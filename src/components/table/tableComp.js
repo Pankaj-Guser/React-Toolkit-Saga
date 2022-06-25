@@ -9,7 +9,7 @@ import ActionsConstant from "../../actions/ActionsConstant";
 import Button from "terra-button";
 import TableBodyComp from "./tableBody";
 import ModalComp from "../modal/Modal";
-import {FormattedMessage} from "react-intl"
+import { FormattedMessage } from "react-intl";
 import "./table.scss";
 
 export default function TableComp(props) {
@@ -56,21 +56,30 @@ export default function TableComp(props) {
             marginTop="medium"
             isInlineBlock
           >
-            <FormattedMessage id="app.table.title" defaultMessage="table title" />
-            {/* knowledge basis Details */}
+            <FormattedMessage
+              id="app.table.title"
+              defaultMessage="table title"
+            />
           </Spacer>
           <Spacer
             className="spacerdemoprimary float-right"
             padding="large tiny"
             isInlineBlock
           >
-            <Button text="Create" onClick={PassValueAdd} />
+            <Button
+              text={
+                <FormattedMessage id="app.create.button" defaultMessage="btn" />
+              }
+              onClick={PassValueAdd}
+            />
           </Spacer>
           <Table paddingStyle="standard">
             <HeaderComp headers={tableHeaderData} />
             <Body>
               {tableData.tabledata &&
-                tableData.tabledata.map((row, index) => <TableBodyComp key={index} row={row} />)}
+                tableData.tabledata.map((row, index) => (
+                  <TableBodyComp key={index} row={row} />
+                ))}
             </Body>
           </Table>
         </div>

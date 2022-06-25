@@ -2,5 +2,17 @@
     "app.header": "Edite <code>{fileName}</code> y guárdelo para volver a cargar.",
     "app.content": "Aprender React",
     "app.channel.plug": "Video presentado por {channelName}",
-    "app.table.title": "base de conocimientos Detalles"
+    "app.table.title": "base de conocimientos Detalles",
+    "app.table.header1": "Instalaciones",
+    "app.table.header2": "Criterios primarios",
+    "app.table.header3": "Comportamiento",
+    "app.modal.title": "Campo de entrada",
+    "app.modal.inputField1": "Instalaciones",
+    "app.modal.inputField2": "Criterios primarios",
+    "app.modal.closebutton": "Cerca",
+    "app.modal.savebutton": "Ahorrar",
+    "app.create.button": "Crear",
+    "app.Edit.button": "Editar",
+    "app.Remove.button": "Remover",
+    "app.Detail.button": "Detalle"   
 }

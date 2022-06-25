@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {FormattedMessage} from "react-intl"
 import Button from "terra-button";
 import { useDispatch } from "react-redux";
 import Spacer from "terra-spacer";
@@ -57,7 +58,7 @@ const TableBodyComp = (props) => {
             paddingRight="medium"
             isInlineBlock
           >
-            <Button text="Edit" onClick={PassValueUpdate} />
+            <Button text={<FormattedMessage id="app.Edit.button" defaultMessage="btn" />} onClick={PassValueUpdate} />
           </Spacer>
           <Spacer
             className="spacerdemoprimary"
@@ -65,14 +66,14 @@ const TableBodyComp = (props) => {
             paddingRight="medium"
             isInlineBlock
           >
-            <Button text="Remove" onClick={() => RemoveSelected(row.key)} />
+            <Button text={<FormattedMessage id="app.Remove.button" defaultMessage="btn" />} onClick={() => RemoveSelected(row.key)} />
           </Spacer>
           <Spacer
             className="spacerdemoprimary"
             paddingLeft="medium"
             isInlineBlock
           >
-            <Button text="Detail" onClick={() => NavigateToDetailsPage(row)} />
+            <Button text={<FormattedMessage id="app.Detail.button" defaultMessage="btn" />} onClick={() => NavigateToDetailsPage(row)} />
           </Spacer>
         </Cell>
       </Row>
