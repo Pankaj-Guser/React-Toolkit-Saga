@@ -6,12 +6,11 @@ import Spacer from "terra-spacer";
 import { FormattedMessage } from "react-intl";
 import ActionHeader from "terra-action-header";
 import DialogModal from "terra-dialog-modal";
-import generalStyles from "./AbstractModalDocCommon.module.scss";
 
 function ModalComp(props) {
-  const { clickedFunction, openModal, setOpenModal, selectedKey } = props;
-  const [cell1Value, setCell1value] = useState("");
-  const [cell2Value, setCell2value] = useState("");
+  const { clickedFunction, openModal, setOpenModal, selectedKey, row } = props;
+  const [cell1Value, setCell1value] = useState(row !== undefined ? row.cells[0].title : "");
+  const [cell2Value, setCell2value] = useState(row !== undefined ? row.cells[1].title : "");
   const UpdateCell1Value = (value) => {
     setCell1value(value);
   };

@@ -3,7 +3,6 @@ import { ActionsConstant } from "../actions/ActionsConstant";
 import tableAPI from "../utils/tableAPI";
 import axios from "axios";
 import TableData from "../helpers/tableDataConverter";
-import mockData from "../mockData/tableMockData";
 
 export function* fetchDataSaga() {
   try {

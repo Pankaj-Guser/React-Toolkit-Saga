@@ -45,7 +45,8 @@ const TableBodyComp = (props) => {
       <ModalComp
         openModal={openModal}
         setOpenModal={setOpenModal}
-        selectedKey={row.key}
+        row={row}
+        selectedKey = {row.key}
         clickedFunction={UpdateSelected}
       />
       <Row key={row.key} >

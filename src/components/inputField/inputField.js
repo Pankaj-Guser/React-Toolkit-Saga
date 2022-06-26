@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Card from "terra-card/lib/Card";
 import classNames from "classnames/bind";
 import Spacer from "terra-spacer";
