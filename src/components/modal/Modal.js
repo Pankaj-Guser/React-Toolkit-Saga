@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import Button from "terra-button";
 import { injectIntl } from "react-intl";
 import InputFieldComp from "../inputField/inputField";
-import classNames from "classnames/bind";
 import Spacer from "terra-spacer";
 import { FormattedMessage } from "react-intl";
 import ActionHeader from "terra-action-header";
 import DialogModal from "terra-dialog-modal";
 import generalStyles from "./AbstractModalDocCommon.module.scss";
 
-const cx = classNames.bind(generalStyles);
 function ModalComp(props) {
   const { clickedFunction, openModal, setOpenModal, selectedKey } = props;
   const [cell1Value, setCell1value] = useState("");
